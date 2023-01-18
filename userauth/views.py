@@ -1,8 +1,9 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import View
 from phonenumbers import geocoder
 from django.http import JsonResponse
 import random
+from .models import Otp
 
 
 import boto3
@@ -43,13 +44,32 @@ def send_otp(request):
         gen_otp = random.randint(100000, 999999)
         message = f"This is ONE TIME PASSWORD - {gen_otp}"
         SendOtp.publish(phone_number, message)
+
+        otpdata = Otp.objects.create(phone_number=phone_number,otp=gen_otp)
+        otpdata.save()
+
         return JsonResponse({"message": "Sent Successfully!"}, status=200)
     else:
         return JsonResponse({"message": "Not send"}, status=200)
+
+def Dashboard(request):
+    template = 'Dashboard.html'
+    return render(request,template)
+
 
 class RegisterWithOtpView(View):
     def get(self,request):
         context = {}
         template = 'authentication/register.html'
-
         return render(request,template)
+
+    def post(self,request):
+        otp = request.POST.get("otp")
+        phone_number = request.POST.get("phn")
+        otp_obj = Otp.objects.filter(phone_number=phone_number).first()
+        if otp == otp_obj.otp:
+            otp_obj.is_verified = True
+            otp_obj.save()
+            return redirect('Dashboard')
+        else:
+            return JsonResponse({'message':'User not found!'})
