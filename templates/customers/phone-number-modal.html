@@ -1,0 +1,149 @@
+{% load static %}
+<!-- Modal -->
+<div class="modal fade login-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<img class="" src="{% static 'img/logo-municipal.svg' %}" alt="logo-municipal" />
+				<button type="button" class="d-none btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="first-step-modal-login" id="id_first_step_modal_login">
+				<div class="modal-body">
+					<h2>Your Phone</h2>
+					<h3>Phone Number</h3>
+					<form>
+						<div class="phone-form-group d-flex">
+							<div class="country">
+								<div id="country" class="select"><img src="{% static 'img/India-flag.svg' %}" /> +91
+								</div>
+								<div id="country-drop" class="dropdown">
+									<ul>
+										<li data-code="IN" data-name="india" data-cid="c32"><img
+												src="{% static 'img/India-flag.svg' %}" /> +91</li>
+										<li data-code="IN" data-name="Albania" data-cid="c33"><img
+												src="{% static 'img/India-flag.svg' %}" />+355</li>
+										<li data-code="DZ" data-name="Algeria" data-cid="c34"><img
+												src="{% static 'img/India-flag.svg' %}" /> +213</li>
+									</ul>
+								</div>
+							</div>
+							<div class="input-form-block">
+								<input type="text" class="form-control" id="id_phone_number">
+							</div>
+						</div>
+					</form>
+					<p>An OTP will be sent via sms to verify your mobile number</p>
+					<p class="d-none text-center" style="color: red; font-size: 12px;" id="id_error">Invalid Phone Number</p>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="id_send_otp">Continue</button>
+					<p>I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a></p>
+				</div>
+			</div>
+			<div class="second-step-modal-login d-none" id="id_second_step_modal_login">
+				<div class="modal-body">
+					<div class="otp-content-top">
+						<h3>OTP Verification</h3>
+						<p>Enter the OTP you received</p>
+					</div>
+					<div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+						<input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" />
+					</div>
+				</div>
+				<p class="d-none text-center" style="color: red; font-size: 12px;" id="invalid_otp">Invalid OTP</p>
+
+				<div class="modal-footer">
+					<a class="otp-timer" id="id_otp_valid_time" href="">(timer)</a>
+					<button type="submit" class="btn btn-primary" id="id_verify_otp">Verify OTP</button>
+				</div>
+
+			</div>
+
+			<div class="third-step-modal-login d-none" id="id_third_step_modal_login">
+				<div class="modal-body">
+					<div class="otp-content-top">
+						<h3>Enter Password</h3>
+					</div>
+					<div class="input-form-block">
+						<input type="password" class="form-control" id="password">
+					</div>
+				</div>
+				<p class="d-none text-center" style="color: red; font-size: 12px;" id="invalid_password">Invalid Password</p>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="id_verify_password">Password</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- <div class="modal fade login-modal" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<img class="" src="{% static 'img/logo-municipal.svg' %}" alt="logo-municipal" />
+				<button type="button" class="d-none btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+			</div>
+			<div class="first-step-modal-login d-none">
+				<div class="modal-body">
+					<h2>Your Phone</h2>
+					<h3>Phone Number</h3>
+					<form>
+						<div class="phone-form-group d-flex">
+							<div class="country">
+								<div id="country" class="select"><img src="{% static 'img/India-flag.svg' %}" /> +91
+								</div>
+								<div id="country-drop" class="dropdown">
+									<ul>
+										<li data-code="IN" data-name="india" data-cid="c32"><img
+												src="{% static 'img/India-flag.svg' %}" /> +91</li>
+										<li data-code="IN" data-name="Albania" data-cid="c33"><img
+												src="{% static 'img/India-flag.svg' %}" />+355</li>
+										<li data-code="DZ" data-name="Algeria" data-cid="c34"><img
+												src="{% static 'img/India-flag.svg' %}" /> +213</li>
+									</ul>
+								</div>
+							</div>
+							<div class="input-form-block">
+								<input type="text" class="form-control">
+							</div>
+						</div>
+					</form>
+					<p>An OTP will be sent via sms to verify your mobile number</p>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary">Continue</button>
+					<p>I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a></p>
+				</div>
+			</div>
+			<div class="second-step-modal-login">
+				<div class="modal-body">
+					<div class="otp-content-top">
+						<h3>OTP Verification</h3>
+						<p>Enter the OTP you received</p>
+					</div>
+					<div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+						<input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" />
+					</div>
+				</div>
+				<div class="modal-footer">
+					<a class="otp-timer" href="">Resend OTP(timer)</a>
+					<button type="submit" class="btn btn-primary">Verify OTP</button>
+				</div>
+
+			</div>
+		</div>
+	</div>
+</div> -->

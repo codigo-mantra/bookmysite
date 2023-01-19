@@ -74,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'bookmysite.wsgi.application'
 
+AUTH_USER_MODEL = 'userauth.User'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases

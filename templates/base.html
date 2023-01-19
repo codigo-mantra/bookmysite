@@ -62,6 +62,9 @@
 <body>
     {% block content %}
     {% endblock content %}
+
+    {% include "customers/phone-number-modal.html" %}
+
 	<div id="preloader"></div>
 	<a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 	<!-- Vendor JS Files -->
@@ -104,6 +107,112 @@
 	  const inputs = document.querySelectorAll('#otp > *[id]');
 	  for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
 		</script>
+
+    <script>
+        $("#id_phone_number").keyup(function() {
+            var phone_number = $("#id_phone_number").val()
+            if(phone_number.length > 9){
+                $("#id_send_otp").text("Send OTP")
+                $("#id_error").addClass('d-none');
+                // send_otp_with_backend()
+
+            }
+        });
+        
+        $("#id_send_otp").click(function(){
+            var phone_number = $("#id_phone_number").val();
+            if(phone_number.length > 9){
+                var code = "+91"
+                $.ajax({
+                    method: "POST",
+                    url: "{% url 'send_otp' %}",
+                    headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                    data: {"phone_number": code+phone_number,},
+                    success: function(response){
+                        if(response.message == 'User already exists') {
+                            $('#id_first_step_modal_login').addClass("d-none");
+                            $('#id_third_step_modal_login').removeClass("d-none");
+                        }
+                        else{
+                            $('#id_first_step_modal_login').addClass("d-none");
+                            var timeLeft = 30;
+                            var elem = document.getElementById('id_otp_valid_time')
+                            var timerId = setInterval(countdown, 1000);
+                            function countdown() {
+                                if (timeLeft == -1) {
+                                    clearTimeout(timerId);
+                                    elem.innerHTML = "Resend OTP";
+                                    // $("#id_resend_otp").removeClass('d-none');
+                                } else {
+                                    elem.innerHTML = timeLeft + ' sec';
+                                    timeLeft--;
+                                }
+                            }
+                            $('#id_second_step_modal_login').removeClass("d-none");
+
+                        }
+                    },
+                    error: function(error){
+                        $("#id_error").removeClass('d-none');
+                    }
+                });
+            }else{
+                alert("Invalid Phone Number!!")
+            }
+        });
+
+        $("#id_verify_otp").click(function() {
+            var code = "+91"
+            var phone_number = $("#id_phone_number").val();
+            var first = $("#first").val();
+            var second = $("#second").val();
+            var third = $("#third").val();
+            var fourth = $("#fourth").val();
+            var fifth = $("#fifth").val();
+            var sixth = $("#sixth").val();
+            var otp = first + second + third + fourth + fifth + sixth;
+            $.ajax({
+                url: "{% url 'register' %}",
+                method: "POST",
+                headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                data: {'otp': otp,'phn':code+phone_number},
+                success: function(data) {
+                    if(data.message === "True"){
+                        console.log("Success request")
+                        window.location.href = "{% url 'user_register_profile' %}";
+                        // location.reload();
+                    }else{
+                        $("#invalid_otp").removeClass('d-none');
+                    }
+                    
+
+                },
+                error: function(error) {
+                    console.log(error);
+                }
+            });
+        });
+
+
+        
+        $("#id_verify_password").click(function() {
+            var phone_number = $("#id_phone_number").val();
+            var password = $("#password").val();
+            $.ajax({
+                url: "{% url 'login_view' %}",
+                method: "POST",
+                headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                data: {'phone_number':phone_number,'password':password},
+                success: function(data) {
+                    console.log(data)
+                },
+                error: function(error){
+                        $("#invalid_password").removeClass('d-none');
+                    }
+            });
+
+        });
+    </script>
     {% block js %}
     {% endblock js %}
 </body>

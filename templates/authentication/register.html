@@ -22,18 +22,24 @@
       </form>
 </div>
 
- <!-- Modal -->
- <div class="modal fade" id="getCodeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-       <div class="modal-content">
+<div class="modal" id="modal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title" id="myModalLabel"> API CODE </h4>
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
         </div>
-        <div class="modal-body" id="getCode" style="overflow-x: scroll;">
-           //ajax success content here.
+        <div class="modal-body">
+            <p>Enter Your Otp</p>
+            <input type="text" id="otp-field" placeholder="Enter OTP">
         </div>
-     </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 
@@ -60,8 +66,9 @@ function getSelectedValue(phn) {
         headers: {"X-CSRFToken": "{{ csrf_token}}"},
         data: {"phone_number": phn},
         success: function(response){
-            $("#getCode").html(response);
-            $("#getCodeModal").modal('show');
+            jQuery.noConflict();
+            $('#modal').modal('show');
+
             // alert("OTP send")
         },
         error: function(error){
@@ -70,6 +77,32 @@ function getSelectedValue(phn) {
     })
     return false;
 }
+
+
+
+$(document).on("click", "#modal .btn-primary", function() {
+    debugger
+
+    var phn = document.getElementById("number").value;
+    var otp = $("#otp-field").val();
+    $.ajax({
+        url: "{% url 'register' %}",
+        method: "POST",
+        headers: {"X-CSRFToken": "{{ csrf_token}}"},
+        data: {'otp': otp,'phn':phn},
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+
+
+
+
 
 </script>
 {% endblock js %}

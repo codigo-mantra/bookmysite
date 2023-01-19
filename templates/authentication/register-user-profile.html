@@ -1,0 +1,63 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5 pt-5 col-6">
+    <form action="{% url 'user_business_profile' %}" method="POST" id="id_phonenumber_form">
+        {% csrf_token %}
+        <div class="mb-3">
+          <label for="first_name" class="form-label">First Name</label>
+          <input type="text"  name="first_name" class="form-control" id="first_name" required>
+        </div>
+        <div class="mb-3">
+          <label for="last_name" class="form-label">Last Name</label>
+          <input type="text"  name="last_name" class="form-control" id="last_name" required>
+        </div>
+        <div class="mb-3">
+          <label for="gender" class="form-label">Gender</label>
+          <input type="text"  name="gender" class="form-control" id="gender" required>
+        </div>
+        <div class="mb-3">
+          <label for="email" class="form-label">Email address</label>
+          <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password">
+        </div>
+        <div class="mb-3">
+            <label for="phone_number" class="form-label">Phone Number</label>
+            <input type="text" value="{{phone_number}}" class="form-control" id="phone_number" placeholder="{{phone_number}}" disabled>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+      </form>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+
+$(document).on("click", ".btn-primary", function() {
+    var first_name = document.getElementById("first_name").value;
+    var last_name = document.getElementById("last_name").value;
+    var gender = document.getElementById("gender").value;
+    var email = document.getElementById("email").value;
+    var password = document.getElementById("password").value;
+    var phone_number = document.getElementById("phone_number").value;
+    $.ajax({
+        url: "{% url 'register' %}",
+        method: "POST",
+        headers: {"X-CSRFToken": "{{ csrf_token}}"},
+        data: {'first_name': first_name,'last_name':last_name,'gender':gender,'email':email,'password':password,'phone_number':phone_number},
+        success: function(data) {
+            console.log(data);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+});
+
+</script>
+{% endblock js %}
