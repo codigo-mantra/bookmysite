@@ -4,7 +4,7 @@
 
 {% block content %}
 <div class="container mt-5 pt-5 col-6">
-    <form action="{% url 'user_business_profile' %}" method="POST" id="id_phonenumber_form">
+    <form action= "" method="POST" id="id_phonenumber_form">
         {% csrf_token %}
         <div class="mb-3">
           <label for="first_name" class="form-label">First Name</label>
@@ -20,15 +20,15 @@
         </div>
         <div class="mb-3">
           <label for="email" class="form-label">Email address</label>
-          <input type="email" class="form-control" id="email" aria-describedby="emailHelp">
+          <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
         </div>
         <div class="mb-3">
             <label for="password" class="form-label">Password</label>
-            <input type="password" class="form-control" id="password">
+            <input type="password" name="password" class="form-control" id="password">
         </div>
         <div class="mb-3">
             <label for="phone_number" class="form-label">Phone Number</label>
-            <input type="text" value="{{phone_number}}" class="form-control" id="phone_number" placeholder="{{phone_number}}" disabled>
+            <input type="text" value="{{phone_number}}" class="form-control" name="phone_number" id="phone_number" placeholder="{{phone_number}}" disabled>
         </div>
         <button type="submit" class="btn btn-primary">Register</button>
       </form>
@@ -38,7 +38,7 @@
 {% block js %}
 <script>
 
-$(document).on("click", ".btn-primary", function() {
+{% comment %} $(document).on("click", ".btn-primary", function() {
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
     var gender = document.getElementById("gender").value;
@@ -57,7 +57,7 @@ $(document).on("click", ".btn-primary", function() {
             console.log(error);
         }
     });
-});
+}); {% endcomment %}
 
 </script>
 {% endblock js %}

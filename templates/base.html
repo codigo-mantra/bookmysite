@@ -129,10 +129,13 @@
                     headers: {"X-CSRFToken": "{{ csrf_token}}"},
                     data: {"phone_number": code+phone_number,},
                     success: function(response){
-                        if(response.message == 'User already exists') {
+                        if(response.is_registerd === true && response.is_otp_verified === true) {
                             $('#id_first_step_modal_login').addClass("d-none");
                             $('#id_third_step_modal_login').removeClass("d-none");
                         }
+						else if(response.is_registerd === false && response.is_otp_verified === true){
+							window.location.href = "{% url 'user_register_profile' %}";
+						}
                         else{
                             $('#id_first_step_modal_login').addClass("d-none");
                             var timeLeft = 30;
@@ -178,9 +181,7 @@
                 data: {'otp': otp,'phn':code+phone_number},
                 success: function(data) {
                     if(data.message === "True"){
-                        console.log("Success request")
                         window.location.href = "{% url 'user_register_profile' %}";
-                        // location.reload();
                     }else{
                         $("#invalid_otp").removeClass('d-none');
                     }

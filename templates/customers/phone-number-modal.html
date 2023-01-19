@@ -64,7 +64,30 @@
 
 			</div>
 
-			<div class="third-step-modal-login d-none" id="id_third_step_modal_login">
+			<div class="second-step-modal-login d-none" id="id_third_step_modal_login">
+				<div class="modal-body">
+					<div class="otp-content-top">
+						<h3>Enter your Mpin</h3>
+					</div>
+					<div id="otp" class="inputs d-flex flex-row justify-content-center mt-2">
+						<input class="m-2 text-center form-control rounded" type="text" id="first" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="second" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="third" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="fourth" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="fifth" maxlength="1" />
+						<input class="m-2 text-center form-control rounded" type="text" id="sixth" maxlength="1" />
+					</div>
+				</div>
+				<p class="d-none text-center" style="color: red; font-size: 12px;" id="invalid_password">Invalid Mpin</p>
+
+				<div class="modal-footer">
+					<a class="otp-timer" id="id_reset_mpin" href="">Reset Mpin</a>
+					<button type="submit" class="btn btn-primary" id="id_for_login">Continue</button>
+				</div>
+
+			</div>
+
+			{% comment %} <div class="third-step-modal-login d-none" id="id_third_step_modal_login">
 				<div class="modal-body">
 					<div class="otp-content-top">
 						<h3>Enter Password</h3>
@@ -78,7 +101,7 @@
 				<div class="modal-footer">
 					<button type="submit" class="btn btn-primary" id="id_verify_password">Password</button>
 				</div>
-			</div>
+			</div> {% endcomment %}
 		</div>
 	</div>
 </div>

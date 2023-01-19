@@ -1,15 +1,37 @@
-from django.shortcuts import render
 from django.views.generic import View, TemplateView
-from phonenumbers import geocoder
 from django.http import JsonResponse
 import random, boto3
-from django.shortcuts import render, redirect
-from django.views.generic import View
-from phonenumbers import geocoder
-from django.http import JsonResponse
+from django.shortcuts import render, redirect, HttpResponseRedirect
 import random
-from .models import Otp,User
+from .models import Otp, User
 from django.contrib.auth import authenticate, login
+from .forms import PersonRegisterForm, UserBusinessProfileForm
+from django.urls import reverse
+
+class UserRegisterProfile(View):
+
+    def get(self, request):
+        template = 'authentication/register-user-profile.html'
+        phone_number = request.session.get('phone_number')
+        return render(request,template,{'phone_number':phone_number})
+
+    def post(self, request):
+        form = PersonRegisterForm(request.POST or None)
+        phone_number = request.session.get('phone_number')
+        if form.is_valid():
+            userprofile = form.save(commit=False)
+            password = form.cleaned_data.get('password')
+            userprofile.username = phone_number
+            userprofile.phone_number = phone_number
+            userprofile.save()
+            user = authenticate(username=userprofile.username, password=password)
+            if user is not None and user.check_password(password):
+                login(request, user)
+                return HttpResponseRedirect(reverse("user_business_profile"))
+            else:
+                return HttpResponseRedirect(reverse("user_register_profile"))
+        else:
+            return HttpResponseRedirect(reverse("user_register_profile"))
 
 class LoginView(View):
     template_name = "userauth/login.html"
@@ -18,8 +40,6 @@ class LoginView(View):
 
     def post(self, request):
         pass
-
-
 
 class PhoneConfirmation:
     response = None
@@ -51,15 +71,27 @@ class PhoneConfirmation:
 
 def send_otp(request):
     if request.method == "POST":
-        SendOtp = PhoneConfirmation()
+        is_registerd = False
+        is_otp_verified = False
+        data = {}
         phone_number = request.POST.get("phone_number")
+        otp_obj = Otp.objects.filter(phone_number=phone_number).first()
+        if otp_obj:
+            if otp_obj.is_verified:
+                is_otp_verified = True
+        else:
+            gen_otp = random.randint(100000, 999999)
+            message = f"This is ONE TIME PASSWORD - {gen_otp}"
+            SendOtp = PhoneConfirmation()
+            SendOtp.publish(phone_number, message)
+            Otp.objects.update_or_create(phone_number=phone_number, defaults={'otp': gen_otp})
         if User.objects.filter(phone_number=phone_number).exists():
-            return JsonResponse({'message':'User already exists'},status=200)
-        gen_otp = random.randint(100000, 999999)
-        message = f"This is ONE TIME PASSWORD - {gen_otp}"
-        SendOtp.publish(phone_number, message)
-        obj, created = Otp.objects.update_or_create(phone_number=phone_number, defaults={'otp': gen_otp})
-        return JsonResponse({"message": "Sent Successfully!"}, status=200)
+            is_registerd = True
+            is_otp_verified = True
+            # return JsonResponse(data,status=200)
+        data['is_registerd'] = is_registerd
+        data['is_otp_verified'] = is_otp_verified
+        return JsonResponse(data, status=200)
     else:
         return JsonResponse({"message": "Not send"}, status=400)
 
@@ -115,33 +147,18 @@ class ContactView(View):
         return render(request, template, context)
 
 
-class UserRegisterProfile(View):
-
-    def get(self,request):
-        template = 'authentication/register-user-profile.html'
-        phone_number = request.session.get('phone_number')
-        return render(request,template,{'phone_number':phone_number})
-
-    def post(self,request):
-        first_name = request.POST.get('first_name')
-        last_name = request.POST.get('last_name')
-        phone_number = request.POST.get('phone_number')
-        email = request.POST.get('email')
-        gender = request.POST.get('gender')
-        password = request.POST.get('password')
-        user = User.objects.filter(phone_number=phone_number)
-        if user.exists():
-            return JsonResponse({'message':'User already exists'},status=200)
-        else:
-            user = User.objects.create(first_name=first_name,last_name=last_name,phone_number=phone_number,email=email,gender=gender,password=password)
-            return redirect('/UserBusinessProfile')
-
-
-
-
-
 class UserBusinessProfile(View):
     def get(self,request):
         template = 'authentication/register-user-business.html'
-        return render(request,template)
+        print(request.user, "&&&&&&&&&&&&&&&&&&&&&&&&&")
+        user_id = request.user.pk
+        return render(request,template, {'user_id': user_id})
+    def post(self, request):
+        form = UserBusinessProfileForm(request.POST or None)
+        if form.is_valid():
+            user_profile = request.user.pk
+            form.save()
+            return HttpResponseRedirect(reverse('home'))
+        else:
+            return HttpResponseRedirect(reverse("user_business_profile"))
         

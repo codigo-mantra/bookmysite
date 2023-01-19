@@ -107,25 +107,27 @@ class TimeStampModel(models.Model):
 
 
 class User(AbstractUser,TimeStampModel):
-    """
-        user model
-    """
-    first_name   = models.CharField(max_length=100, blank=False)
-    last_name    = models.CharField(max_length=100, blank=False)
-    phone_number = models.CharField(max_length=15, unique=True)
-    email        = models.EmailField("email address",blank=True, null=True)
-    gender       = models.CharField(max_length=100, blank=False)
+    first_name = models.CharField(max_length=100, blank=False)
+    last_name = models.CharField(max_length=100, blank=False)
+    phone_number = models.CharField(max_length=15, null=True, blank=True)
+    gender = models.CharField(max_length=100, blank=False)
+
+    def __str__(self):
+        return "{} {}".format(self.first_name, self.last_name)
 
 
 
 
 class UserBusinessProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name="user_business_profile")
     business_name = models.CharField(max_length=50)
     business_type = models.CharField(max_length=50)
     office_address = models.CharField(max_length=100)
     office_phone_number = models.CharField(max_length=100)
     about_business = models.TextField(null=True,blank=True)
+
+    def __str__(self) -> str:
+        return f"User : {self.user} > {self.business_name}"
 
 
 
