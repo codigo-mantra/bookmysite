@@ -4,7 +4,7 @@ import random, boto3
 from django.shortcuts import render, redirect, HttpResponseRedirect
 import random
 from .models import Otp, User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import PersonRegisterForm, UserBusinessProfileForm
 from django.urls import reverse
 
@@ -33,13 +33,10 @@ class UserRegisterProfile(View):
         else:
             return HttpResponseRedirect(reverse("user_register_profile"))
 
-class LoginView(View):
-    template_name = "userauth/login.html"
+class LogOutView(View):
     def get(self, request):
-        return render(request, self.template_name)
-
-    def post(self, request):
-        pass
+        logout(request)
+        return HttpResponseRedirect(reverse("home"))
 
 class PhoneConfirmation:
     response = None
