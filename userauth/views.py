@@ -101,14 +101,19 @@ def send_otp(request):
 
 class LoginView(View):
     def post(self,request):
+        is_logged_in = False
+        print(request.POST, "################")
         phone_number = request.POST.get("phone_number")
         password = request.POST.get("password")
         user = authenticate(request, phone_number=phone_number, password=password)
-        if user is not None:
+        if user is not None and user.check_password(password):
             login(request, user)
-            # return redirect('home')
+            is_logged_in = True
+            print("User logged in successfully and Return True!")
+            return JsonResponse({"is_logged_in": is_logged_in}, status=200)
         else:
-            return JsonResponse({"message":"Invalid login details supplied."})
+            print("Failed user login and Return False!")
+            return JsonResponse({"is_logged_in": is_logged_in}, status=200)
 
 
 

@@ -4,35 +4,6 @@
 	<!-- BEGIN HEAD -->
 	
 	<head>
-		{% comment %} <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" /> {% endcomment %}
-	{% comment %} <meta charset="utf-8" />
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta content="width=device-width, initial-scale=1" name="viewport" />
-	<meta name="description" content="Responsive Admin Template" />
-	<meta name="author" content="SmartUniversity" />
-	<title>{% block title %}Smart University | Bootstrap Responsive Admin Template{% endblock %}</title>
-	<!-- google font -->
-	<link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" rel="stylesheet" type="text/css" />
-	<!-- icons -->
-	<link href="{% static 'fonts/simple-line-icons/simple-line-icons.min.css' %}" rel="stylesheet" type="text/css" />
-	<link href="{% static 'fonts/font-awesome/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css" />
-	<link href="{% static 'fonts/material-design-icons/material-icon.css' %}" rel="stylesheet" type="text/css" />
-	<!--bootstrap -->
-	<link href="{% static 'plugins/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
-	<link href="{% static 'plugins/summernote/summernote.css' %}" rel="stylesheet">
-	<!-- Material Design Lite CSS -->
-	<link rel="stylesheet" href="{% static 'plugins/material/material.min.css' %}">
-	<link rel="stylesheet" href="{% static 'css/material_style.css' %}">
-	<!-- inbox style -->
-	<link href="{% static 'css/pages/inbox.min.css' %}" rel="stylesheet" type="text/css" />
-	<!-- Theme Styles -->
-	<link href="{% static 'css/theme/light/theme_style.css' %}" rel="stylesheet" id="rt_style_components" type="text/css" />
-	<link href="{% static 'css/plugins.min.css' %}" rel="stylesheet" type="text/css" />
-	<link href="{% static 'css/theme/light/style.css' %}" rel="stylesheet" type="text/css" />
-	<link href="{% static 'css/responsive.css' %}" rel="stylesheet" type="text/css" />
-	<link href="{% static 'css/theme/light/theme-color.css' %}" rel="stylesheet" type="text/css" />
-	<!-- favicon --> {% endcomment %}
-
 	<meta charset="utf-8">
 	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
@@ -193,19 +164,29 @@
                 }
             });
         });
-
-
         
-        $("#id_verify_password").click(function() {
+        $("#id_for_login").click(function() {
             var phone_number = $("#id_phone_number").val();
-            var password = $("#password").val();
+            var code = "+91";
+            var first = $("#first_mpin").val();
+            var second = $("#second_mpin").val();
+            var third = $("#third_mpin").val();
+            var fourth = $("#fourth_mpin").val();
+            var fifth = $("#fifth_mpin").val();
+            var sixth = $("#sixth_mpin").val();
+            var password = first + second + third + fourth + fifth + sixth;
             $.ajax({
                 url: "{% url 'login_view' %}",
                 method: "POST",
                 headers: {"X-CSRFToken": "{{ csrf_token}}"},
-                data: {'phone_number':phone_number,'password':password},
-                success: function(data) {
-                    console.log(data)
+                data: {'phone_number':code+phone_number,'password':password},
+                success: function(response) {
+                    console.log(response)
+                    if(response.is_logged_in === true){
+                        window.location.href = "{% url 'home' %}";
+                    }else{
+                        $("#invalid_password").removeClass('d-none');
+                    }
                 },
                 error: function(error){
                         $("#invalid_password").removeClass('d-none');
