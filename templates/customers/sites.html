@@ -1,0 +1,206 @@
+{% extends "base.html" %}
+{% load static %}
+{% block content %}
+  <!-- ======= Header/Navbar ======= -->
+  {% include 'header.html' %}
+  <!-- End Header/Navbar -->
+    <main id="main">
+
+    <!-- ======= Intro Single ======= -->
+    <section class="intro-single">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12 col-lg-8">
+            <div class="title-single-box">
+              <h1 class="title-single">Help Us to Understand Your Requirement</h1>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4">
+            <nav aria-label="breadcrumb" class="breadcrumb-box d-flex justify-content-lg-end">
+              <ol class="breadcrumb">
+                <li class="breadcrumb-item">
+                  <a href="/">Home</a>
+                </li>
+                <li class="breadcrumb-item active" aria-current="page">
+                  Sites
+                </li>
+              </ol>
+            </nav>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Intro Single-->
+
+    <!-- ======= Contact Single ======= -->
+    <section class="contact">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-md-12">
+                <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <div class="form-group">
+                        <input type="text" name="name" class="form-control form-control-lg form-control-a" placeholder="First Name" required>
+                      </div>
+                    </div>
+					<div class="col-md-6 mb-4">
+                      <div class="form-group">
+                        <input type="text" name="name" class="form-control form-control-lg form-control-a" placeholder="Last Name" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-group">
+                        <input name="business" type="text" class="form-control form-control-lg form-control-a" placeholder="Business Profile name" required>
+                      </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <div class="form-group">
+                        <input type="text" name="location" class="form-control form-control-lg form-control-a" placeholder="Location" required>
+                      </div>
+                    </div>
+					<div class="col-md-12 mb-4">
+                      <div class="form-group">
+                        <input type="date" name="date" class="form-control form-control-lg form-control-a" placeholder="Start Date" required>
+                      </div>
+                    </div>
+					<div class="col-md-12 mb-5">
+                      <div class="form-group">
+                        <input type="text" name="days" class="form-control form-control-lg form-control-a" placeholder="Days" required>
+                      </div>
+                    </div>
+					<div class="col-md-12 mb-4">
+                      <div class="form-group">
+							<div class="range-slider-main">
+							<div class="col-md-12 text-center">
+							<label for="customRange1" class="form-label">(Slider for 1-60 days)</label>
+							</div>
+							  <div class="price-input d-none">
+								<div class="field">
+								  <span>Min</span>
+								  <input type="number" class="input-min" value="2500">
+								</div>
+								<div class="separator">-</div>
+								<div class="field">
+								  <span>Max</span>
+								  <input type="number" class="input-max" value="7500">
+								</div>
+							  </div>
+							  <div class="range-slider">
+								<div class="progress"></div>
+							  </div>
+							  <div class="range-input">
+								<input type="range" class="range-min" min="0" max="10000" value="2500" step="100">
+								<input type="range" class="range-max" min="0" max="10000" value="7500" step="100">
+							  </div>
+							</div>
+                      </div>
+                    </div>
+					
+                    <div class="col-md-12 mt-4 text-center">
+                      <button type="submit" class="btn btn-a">Start Searching</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Contact Single-->
+
+  </main>
+    <!-- ======= Footer ======= -->
+  {% include 'footer1.html' %}
+  <!-- End  Footer -->
+	<!-- Modal -->
+
+{% endblock content %}
+{% block js %}
+
+<script>
+  function countryDropdown(seletor){
+	var Selected = $(seletor);
+	var Drop = $(seletor+'-drop');
+	var DropItem = Drop.find('li');
+
+	Selected.click(function(){
+		Selected.toggleClass('open');
+		Drop.toggle();
+	});
+
+	Drop.find('li').click(function(){
+		Selected.removeClass('open');
+		Drop.hide();
+		
+		var item = $(this);
+		Selected.html(item.html());
+	});
+
+	DropItem.each(function(){
+		var code = $(this).attr('data-code');
+
+		if(code != undefined){
+			var countryCode = code.toLowerCase();
+			$(this).find('i').addClass('flagstrap-'+countryCode);
+		}
+	});
+}
+$(".send-otp-btn").click(function(){
+  $(".first-step-modal-login").hide();
+  $(".second-step-modal-login").show();
+});
+
+countryDropdown('#country');                        
+document.addEventListener("DOMContentLoaded", function(event) {
+function OTPInput() {
+const inputs = document.querySelectorAll('#otp > *[id]');
+for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
+
+const rangeInput = document.querySelectorAll(".range-input input"),
+  priceInput = document.querySelectorAll(".price-input input"),
+  range = document.querySelector(".range-slider .progress");
+let priceGap = 1000;
+
+priceInput.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    let minPrice = parseInt(priceInput[0].value),
+      maxPrice = parseInt(priceInput[1].value);
+
+    if (maxPrice - minPrice >= priceGap && maxPrice <= rangeInput[1].max) {
+      if (e.target.className === "input-min") {
+        rangeInput[0].value = minPrice;
+        range.style.left = (minPrice / rangeInput[0].max) * 100 + "%";
+      } else {
+        rangeInput[1].value = maxPrice;
+        range.style.right = 100 - (maxPrice / rangeInput[1].max) * 100 + "%";
+      }
+    }
+  });
+});
+
+rangeInput.forEach((input) => {
+  input.addEventListener("input", (e) => {
+    let minVal = parseInt(rangeInput[0].value),
+      maxVal = parseInt(rangeInput[1].value);
+
+    if (maxVal - minVal < priceGap) {
+      if (e.target.className === "range-min") {
+        rangeInput[0].value = maxVal - priceGap;
+      } else {
+        rangeInput[1].value = minVal + priceGap;
+      }
+    } else {
+      priceInput[0].value = minVal;
+      priceInput[1].value = maxVal;
+      range.style.left = (minVal / rangeInput[0].max) * 100 + "%";
+      range.style.right = 100 - (maxVal / rangeInput[1].max) * 100 + "%";
+    }
+  });
+});
+
+
+  </script>
+{% endblock js %}
+

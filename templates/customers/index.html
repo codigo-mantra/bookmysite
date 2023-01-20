@@ -2,14 +2,10 @@
 {% load static %}
 {% block content %}
   <!-- ======= Property Search Section ======= -->
-  
   {% include 'header.html' %}
-  <!-- ======= Intro Section ======= -->
   <div class="intro intro-carousel swiper position-relative">
-
     <div class="swiper-wrapper">
-
-      <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({% static 'img/slide-1.jpg' %})">
+      <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({% static '/img/slide-1.jpg' %})">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
@@ -24,9 +20,6 @@
                       <span class="color-b">204 </span> Mount
                       <br> Olive Road Two
                     </h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -34,7 +27,7 @@
           </div>
         </div>
       </div>
-      <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({% static 'img/slide-2.jpg' %})">
+      <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({% static '/img/slide-2.jpg' %})">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
@@ -49,9 +42,6 @@
                       <span class="color-b">204 </span> Rino
                       <br> Venda Road Five
                     </h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -59,7 +49,7 @@
           </div>
         </div>
       </div>
-      <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({% static 'img/slide-3.jpg' %})">
+      <div class="swiper-slide carousel-item-a intro-item bg-image" style="background-image: url({% static '/img/slide-3.jpg' %})">
         <div class="overlay overlay-a"></div>
         <div class="intro-content display-table">
           <div class="table-cell">
@@ -74,9 +64,6 @@
                       <span class="color-b">204 </span> Alira
                       <br> Roan Road One
                     </h1>
-                    <p class="intro-subtitle intro-price">
-                      <a href="#"><span class="price-a">rent | $ 12.000</span></a>
-                    </p>
                   </div>
                 </div>
               </div>
@@ -122,11 +109,6 @@
                 <p class="content-c">
                   Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.Lorem ipsum dolor sit amet consectetur. Viverra diam magna quis pharetra posuere vehicula.
                 </p>
-				 <div class="card-footer-c">
-                <a href="#" class="link-c link-icon">Read more
-                  <span class="bi bi-chevron-right"></span>
-                </a>
-              </div>
               </div>
               </div>
               </div>
@@ -147,7 +129,7 @@
                 <h2 class="title-a">Recomended Properties</h2>
               </div>
               <div class="title-link">
-                <a href="property-grid.html">All Property
+                <a href="{% url 'property_grid' %}">All Property
                   <span class="bi bi-chevron-right"></span>
                 </a>
               </div>
@@ -161,20 +143,17 @@
             <div class="carousel-item-b swiper-slide">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
-                  <img src="{% static 'img/property-6.jpg' %}" alt="" class="img-a img-fluid">
+                  <img src="{% static '/img/property-6.jpg' %}" alt="" class="img-a img-fluid">
                 </div>
                 <div class="card-overlay">
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="property-single.html">206 Mount
+                        <a href="#">206 Mount
                           <br /> Olive Road Two</a>
                       </h2>
                     </div>
                     <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
                       <a href="#" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
                       </a>
@@ -182,22 +161,13 @@
                     <div class="card-footer-a">
                       <ul class="card-info d-flex justify-content-around">
                         <li>
-                          <h4 class="card-info-title">Area</h4>
+                          <h4 class="card-info-title">Size</h4>
                           <span>340m
-                            <sup>2</sup>
                           </span>
                         </li>
                         <li>
-                          <h4 class="card-info-title">Beds</h4>
+                          <h4 class="card-info-title">Type</h4>
                           <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
                         </li>
                       </ul>
                     </div>
@@ -209,43 +179,31 @@
             <div class="carousel-item-b swiper-slide">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
-                  <img src="{% static 'img/property-3.jpg' %}" alt="" class="img-a img-fluid">
+                  <img src="{% static '/img/property-3.jpg' %}" alt="" class="img-a img-fluid">
                 </div>
                 <div class="card-overlay">
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="property-single.html">157 West
+                        <a href="#">157 West
                           <br /> Central Park</a>
                       </h2>
                     </div>
                     <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="property-single.html" class="link-a">Click here to view
+                      <a href="#" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
                       </a>
                     </div>
                     <div class="card-footer-a">
                       <ul class="card-info d-flex justify-content-around">
                         <li>
-                          <h4 class="card-info-title">Area</h4>
+                          <h4 class="card-info-title">Size</h4>
                           <span>340m
-                            <sup>2</sup>
                           </span>
                         </li>
                         <li>
-                          <h4 class="card-info-title">Beds</h4>
+                          <h4 class="card-info-title">Type</h4>
                           <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
                         </li>
                       </ul>
                     </div>
@@ -257,43 +215,31 @@
             <div class="carousel-item-b swiper-slide">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
-                  <img src="{% static 'img/property-7.jpg' %}" alt="" class="img-a img-fluid">
+                  <img src="{% static '/img/property-7.jpg' %}" alt="" class="img-a img-fluid">
                 </div>
                 <div class="card-overlay">
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="property-single.html">245 Azabu
+                        <a href="#">245 Azabu
                           <br /> Nishi Park let</a>
                       </h2>
                     </div>
                     <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="property-single.html" class="link-a">Click here to view
+                      <a href="#" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
                       </a>
                     </div>
                     <div class="card-footer-a">
                       <ul class="card-info d-flex justify-content-around">
                         <li>
-                          <h4 class="card-info-title">Area</h4>
+                          <h4 class="card-info-title">Size</h4>
                           <span>340m
-                            <sup>2</sup>
                           </span>
                         </li>
                         <li>
-                          <h4 class="card-info-title">Beds</h4>
+                          <h4 class="card-info-title">Type</h4>
                           <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
                         </li>
                       </ul>
                     </div>
@@ -305,43 +251,31 @@
             <div class="carousel-item-b swiper-slide">
               <div class="card-box-a card-shadow">
                 <div class="img-box-a">
-                  <img src="{% static 'img/property-10.jpg' %}" alt="" class="img-a img-fluid">
+                  <img src="{% static '/img/property-10.jpg' %}" alt="" class="img-a img-fluid">
                 </div>
                 <div class="card-overlay">
                   <div class="card-overlay-a-content">
                     <div class="card-header-a">
                       <h2 class="card-title-a">
-                        <a href="property-single.html">204 Montal
+                        <a href="#">204 Montal
                           <br /> South Bela Two</a>
                       </h2>
                     </div>
                     <div class="card-body-a">
-                      <div class="price-box d-flex">
-                        <span class="price-a">rent | $ 12.000</span>
-                      </div>
-                      <a href="property-single.html" class="link-a">Click here to view
+                      <a href="#" class="link-a">Click here to view
                         <span class="bi bi-chevron-right"></span>
                       </a>
                     </div>
                     <div class="card-footer-a">
                       <ul class="card-info d-flex justify-content-around">
                         <li>
-                          <h4 class="card-info-title">Area</h4>
+                          <h4 class="card-info-title">Size</h4>
                           <span>340m
-                            <sup>2</sup>
                           </span>
                         </li>
                         <li>
-                          <h4 class="card-info-title">Beds</h4>
+                          <h4 class="card-info-title">Type</h4>
                           <span>2</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Baths</h4>
-                          <span>4</span>
-                        </li>
-                        <li>
-                          <h4 class="card-info-title">Garages</h4>
-                          <span>1</span>
                         </li>
                       </ul>
                     </div>
@@ -371,27 +305,27 @@
 			  <div class="circulars-items">
 				  <div class="circulars-item">
 				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
-				  <a href="{% static 'img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
 				  </div>
 				   <div class="circulars-item">
 				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
-				  <a href="{% static 'img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
 				  </div>
 				   <div class="circulars-item">
 				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
-				  <a href="{% static 'img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
 				  </div>
 				   <div class="circulars-item">
 				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
-				  <a href="{% static 'img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
 				  </div>
 				   <div class="circulars-item">
 				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
-				  <a href="{% static 'img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
 				  </div>
 				   <div class="circulars-item">
 				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
-				  <a href="{% static 'img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
 				  </div>
 			  </div>
           </div>
@@ -420,7 +354,7 @@
                 <div class="row">
                   <div class="col-md-12 text-center">
 				   <div class="testimonial-author-box">
-                      <img src="{% static 'img/mini-testimonial-1.jpg' %}" alt="" class="testimonial-avatar">
+                      <img src="{% static '/img/mini-testimonial-1.jpg' %}" alt="" class="testimonial-avatar">
                       <h5 class="testimonial-author">Albert & Erika</h5>
                       <h6 class="testimonial-designation">Designation</h6>
                     </div>
@@ -439,7 +373,7 @@ Sapien enim venenatis sit vel. Sit et egestas enim nunc morbi arcu. Gravida habi
                 <div class="row">
                   <div class="col-md-12 text-center">
 				   <div class="testimonial-author-box">
-                      <img src="{% static 'img/mini-testimonial-1.jpg' %}" alt="" class="testimonial-avatar">
+                      <img src="{% static '/img/mini-testimonial-1.jpg' %}" alt="" class="testimonial-avatar">
                       <h5 class="testimonial-author">Albert & Erika</h5>
                       <h6 class="testimonial-designation">Designation</h6>
                     </div>
@@ -458,7 +392,7 @@ Sapien enim venenatis sit vel. Sit et egestas enim nunc morbi arcu. Gravida habi
                 <div class="row">
                   <div class="col-md-12 text-center">
 				   <div class="testimonial-author-box">
-                      <img src="{% static 'img/mini-testimonial-1.jpg' %}" alt="" class="testimonial-avatar">
+                      <img src="{% static '/img/mini-testimonial-1.jpg' %}" alt="" class="testimonial-avatar">
                       <h5 class="testimonial-author">Albert & Erika</h5>
                       <h6 class="testimonial-designation">Designation</h6>
                     </div>
@@ -504,6 +438,16 @@ Sapien enim venenatis sit vel. Sit et egestas enim nunc morbi arcu. Gravida habi
                         <input name="email" type="email" class="form-control form-control-lg form-control-a" placeholder="Your Email" required="">
                       </div>
                     </div>
+					<div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <input name="phone" type="tel" class="form-control form-control-lg form-control-a" placeholder="Phone Number" required="">
+                      </div>
+                    </div>
+					<div class="col-md-6 mb-3">
+                      <div class="form-group">
+                        <input name="location" type="text" class="form-control form-control-lg form-control-a" placeholder="Site number, location, type" required="">
+                      </div>
+                    </div>
                     <div class="col-md-12 mb-3">
                       <div class="form-group">
                         <input type="text" name="subject" class="form-control form-control-lg form-control-a" placeholder="Subject" required="">
@@ -511,7 +455,7 @@ Sapien enim venenatis sit vel. Sit et egestas enim nunc morbi arcu. Gravida habi
                     </div>
                     <div class="col-md-12">
                       <div class="form-group">
-                        <textarea name="message" class="form-control" cols="45" rows="8" placeholder="Message" required=""></textarea>
+                        <textarea name="message" class="form-control" cols="45" rows="6" placeholder="Description about the complaint" required=""></textarea>
                       </div>
                     </div>
                     <div class="col-md-12 my-3">
@@ -610,8 +554,53 @@ Sapien enim venenatis sit vel. Sit et egestas enim nunc morbi arcu. Gravida habi
   </main><!-- End #main -->
 
   <!-- ======= Footer ======= -->
-  {% include 'footer.html' %}
+  {% include 'footer1.html' %}
   <!-- End  Footer -->
-	<!-- Modal -->
 
 {% endblock content %}
+
+{% block js %}
+<script>
+  function countryDropdown(seletor){
+	var Selected = $(seletor);
+	var Drop = $(seletor+'-drop');
+	var DropItem = Drop.find('li');
+
+	Selected.click(function(){
+		Selected.toggleClass('open');
+		Drop.toggle();
+	});
+
+	Drop.find('li').click(function(){
+		Selected.removeClass('open');
+		Drop.hide();
+		
+		var item = $(this);
+		Selected.html(item.html());
+	});
+
+	DropItem.each(function(){
+		var code = $(this).attr('data-code');
+
+		if(code != undefined){
+			var countryCode = code.toLowerCase();
+			$(this).find('i').addClass('flagstrap-'+countryCode);
+		}
+	});
+}
+$(".send-otp-btn").click(function(){
+  $(".first-step-modal-login").hide();
+  $(".second-step-modal-login").show();
+});
+
+countryDropdown('#country');
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+function OTPInput() {
+const inputs = document.querySelectorAll('#otp > *[id]');
+for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
+  </script>
+
+
+{% endblock js %}

@@ -146,6 +146,59 @@ class ContactView(View):
         template = 'customers/contact.html'
         return render(request, template, context)
 
+class SiteView(View):
+    def get(self,request):
+        context = {}
+        template = 'customers/sites.html'
+        return render(request, template, context)
+
+
+class CircularsView(View):
+    def get(self,request):
+        context = {}
+        template = 'customers/circulars.html'
+        return render(request, template, context)
+
+
+class TermAndConditionsView(View):
+    def get(self,request):
+        template = 'customers/term_conditions.html'
+        return render(request, template)
+
+class PropertyGridView(View):
+    def get(self,request):
+        template = 'customers/property-grid.html'
+        return render(request, template)
+
+class propertySingleView(View):
+    def get(self,request):
+        template = 'customers/property-single.html'
+        return render(request, template)
+
+class BlogGridView(View):
+    def get(self,request):
+        template = 'customers/blog-grid.html'
+        return render(request, template)
+
+class BlogSingleView(View):
+    def get(self,request):
+        template = 'customers/blog-single.html'
+        return render(request, template)
+
+class AgentGridView(View):
+    def get(self,request):
+        template = 'customers/agents-grid.html'
+        return render(request, template)
+
+
+class AgentSingleView(View):
+    def get(self,request):
+        template = 'customers/agent-single.html'
+        return render(request, template)
+
+
+
+
 
 class UserBusinessProfile(View):
     def get(self,request):

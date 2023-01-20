@@ -1,0 +1,103 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <!-- ======= Property Search Section ======= -->
+  
+  {% include 'header.html' %}
+  <!-- ======= Intro Section ======= -->
+
+  <main id="main">
+
+    <!-- ======= Services Section ======= -->
+    <section class="intro-single">
+      <div class="container">
+        <div class="row">
+         
+		  <div class="col-md-12">
+			  <div class="circulars-items">
+				  <div class="circulars-item">
+				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
+				  <a href="assets/img/dummy.pdf" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  </div>
+				   <div class="circulars-item">
+				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
+				  <a href="assets/img/dummy.pdf" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  </div>
+				   <div class="circulars-item">
+				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
+				  <a href="assets/img/dummy.pdf" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  </div>
+				   <div class="circulars-item">
+				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
+				  <a href="assets/img/dummy.pdf" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  </div>
+				   <div class="circulars-item">
+				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
+				  <a href="assets/img/dummy.pdf" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  </div>
+				   <div class="circulars-item">
+				  <h4>Lorem ipsum dolor sit amet consectetur. Nec at consectetur purus dis rhoncus.</h4>
+				  <a href="assets/img/dummy.pdf" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+				  </div>
+			  </div>
+          </div>
+        </div>
+        
+      </div>
+    </section><!-- End Services Section -->
+
+  </main><!-- End #main -->
+    <!-- ======= Footer ======= -->
+  {% include 'footer1.html' %}
+  <!-- End  Footer -->
+	<!-- Modal -->
+
+{% endblock content %}
+
+{% block js %}
+   <script>
+      function countryDropdown(seletor){
+      var Selected = $(seletor);
+      var Drop = $(seletor+'-drop');
+      var DropItem = Drop.find('li');
+
+      Selected.click(function(){
+        Selected.toggleClass('open');
+        Drop.toggle();
+      });
+
+      Drop.find('li').click(function(){
+        Selected.removeClass('open');
+        Drop.hide();
+        
+        var item = $(this);
+        Selected.html(item.html());
+      });
+
+      DropItem.each(function(){
+        var code = $(this).attr('data-code');
+
+        if(code != undefined){
+          var countryCode = code.toLowerCase();
+          $(this).find('i').addClass('flagstrap-'+countryCode);
+        }
+      });
+    }
+    $(".send-otp-btn").click(function(){
+      $(".first-step-modal-login").hide();
+      $(".second-step-modal-login").show();
+    });
+
+    countryDropdown('#country');
+
+    document.addEventListener("DOMContentLoaded", function(event) {
+
+    function OTPInput() {
+    const inputs = document.querySelectorAll('#otp > *[id]');
+    for (let i = 0; i < inputs.length; i++) { inputs[i].addEventListener('keydown', function(event) { if (event.key==="Backspace" ) { inputs[i].value='' ; if (i !==0) inputs[i - 1].focus(); } else { if (i===inputs.length - 1 && inputs[i].value !=='' ) { return true; } else if (event.keyCode> 47 && event.keyCode < 58) { inputs[i].value=event.key; if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } else if (event.keyCode> 64 && event.keyCode < 91) { inputs[i].value=String.fromCharCode(event.keyCode); if (i !==inputs.length - 1) inputs[i + 1].focus(); event.preventDefault(); } } }); } } OTPInput(); });
+      </script>
+{% endblock js %}
+
+ 
+
+
