@@ -11,11 +11,41 @@ from django.urls import reverse
 class UserRegisterProfile(View):
 
     def get(self, request):
-        template = 'authentication/register-user-profile.html'
+        user_obj = None
+        template = 'authentication/my-profile.html'
         phone_number = request.session.get('phone_number')
-        return render(request,template,{'phone_number':phone_number})
+        if request.user.is_authenticated:
+            user_obj = request.user
+        return render(request,template,{'phone_number':phone_number, "user_obj": user_obj})
 
     def post(self, request):
+        # is_updated = request.POST.get('_method' or None)
+        # if is_updated == 'PUT':
+        #     user = request.user
+        #     form = PersonRegisterForm(request.POST, instance=user)
+        #     if form.is_valid():
+        #         form.save()
+        #         return HttpResponseRedirect(reverse("home"))
+        #     else:
+        #         return HttpResponseRedirect(reverse("home"))
+
+        is_updated = request.POST.get('_method' or None)
+        if is_updated == 'PUT':
+            update_data = {
+                'first_name': request.POST.get('first_name'),
+                'last_name': request.POST.get('last_name'),
+                'gender': request.POST.get('gender'),
+                'email': request.POST.get('email'),
+            }
+            user = User.objects.filter(id=request.user.id)
+            if user:
+                user.update(**update_data)
+                return HttpResponseRedirect(reverse("home"))
+            else:
+                return HttpResponseRedirect(reverse("home"))
+
+
+
         form = PersonRegisterForm(request.POST or None)
         phone_number = request.session.get('phone_number')
         if form.is_valid():
@@ -32,6 +62,8 @@ class UserRegisterProfile(View):
                 return HttpResponseRedirect(reverse("user_register_profile"))
         else:
             return HttpResponseRedirect(reverse("user_register_profile"))
+            
+
 
 class LogOutView(View):
     def get(self, request):
@@ -74,8 +106,14 @@ def send_otp(request):
         phone_number = request.POST.get("phone_number")
         otp_obj = Otp.objects.filter(phone_number=phone_number).first()
         if otp_obj:
-            if otp_obj.is_verified:
+            if otp_obj.is_verified == True:
                 is_otp_verified = True
+            else:
+                gen_otp = random.randint(100000, 999999)
+                message = f"This is ONE TIME PASSWORD - {gen_otp}"
+                SendOtp = PhoneConfirmation()
+                SendOtp.publish(phone_number, message)
+                Otp.objects.update_or_create(phone_number=phone_number, defaults={'otp': gen_otp})
         else:
             gen_otp = random.randint(100000, 999999)
             message = f"This is ONE TIME PASSWORD - {gen_otp}"
@@ -198,16 +236,30 @@ class AgentSingleView(View):
         template = 'customers/agent-single.html'
         return render(request, template)
 
+class BookingView(View):
+    def get(self,request):
+        template = 'authentication/bookings.html'
+        return render(request, template)
 
+class InvoicesView(View):
+    def get(self,request):
+        template = 'authentication/invoices.html'
+        return render(request, template)
+
+class PropertySearchGrid(View):
+    def get(self,request):
+        template = 'customers/property-search-grid.html'
+        return render(request, template)
 
 
 
 class UserBusinessProfile(View):
     def get(self,request):
-        template = 'authentication/register-user-business.html'
+        template = 'authentication/business-profile.html'
         print(request.user, "&&&&&&&&&&&&&&&&&&&&&&&&&")
         user_id = request.user.pk
         return render(request,template, {'user_id': user_id})
+
     def post(self, request):
         form = UserBusinessProfileForm(request.POST or None)
         if form.is_valid():

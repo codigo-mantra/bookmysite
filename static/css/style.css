@@ -723,8 +723,8 @@ a:hover {
     color: rgba(0, 0, 0, 0.4);
 }
 .otp-content-top {
-    text-align: center;
     display: block;
+    padding: 0 10px;
 }
 .otp-timer {
     font-weight: 400;
@@ -1801,11 +1801,19 @@ a:hover {
 }
 .range-slider-main .range-slider .progress {
   height: 100%;
-  left: 25%;
-  right: 25%;
+  left: 0;
+  right: 0;
   position: absolute;
   border-radius: 5px;
   background: #17a2b8;
+}
+.back-login-btn {
+    color: #0075bb;
+    font-size: 22px;
+    cursor: pointer;
+}
+#complaints-section {
+    scroll-margin-top: 90px;
 }
 .range-slider-main .range-input {
   position: relative;
@@ -1839,7 +1847,23 @@ a:hover {
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
-
+.card-overlay-a-checkbox .form-check-input {
+    background: transparent;
+    border: 2px solid #fff;
+    padding: 10px;
+	box-shadow: none;
+}
+.card-overlay-a-checkbox {
+    transition: all 0.5s ease-in;
+    position: absolute;
+    width: 100%;
+    top: 8px;
+    z-index: 2;
+    right: 10px;
+    left: auto;
+    display: flex;
+    justify-content: end;
+}
 .b-btn {
   color: white;
   text-decoration: none;
@@ -2468,6 +2492,87 @@ a:hover {
   box-shadow: none;
   border-color: #0075BB;
 }
+.section-footer .item-list-a i.color-you-tube {
+    color: #FF0000;
+}
+.sidebar-menu-bar {
+    border: 1px solid #ccc;
+    background: #f7f7f7;
+	display: block;
+}
+.sidebar-menu-bar ul {
+    padding: 0;
+    list-style: none;
+    margin: 0;
+}
+.sidebar-menu-bar ul li:last-child a {
+    border-bottom: none;
+}
+.sidebar-menu-bar ul li a:hover, .sidebar-menu-bar ul li.active a {
+    background: #0075bb;
+    color: #fff;
+}
+
+.sidebar-menu-bar ul li a {
+    position: relative;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    padding: 10px 30px;
+    font-size: 14px;
+    font-weight: 400;
+    -webkit-transition: border-left-color 0.3s ease, background-color 0.3s ease;
+    -o-transition: border-left-color 0.3s ease, background-color 0.3s ease;
+    transition: border-left-color 0.3s ease, background-color 0.3s ease;
+    color: #495584;
+    border-bottom: 1px solid #ccc;
+}
+.invoices-buttons-profies h5 {
+    color: #333;
+    font-size: 14px;
+    margin: 0;
+	padding: 12px 15px;
+}
+.invoices-buttons-profies .circulars-item {
+    background: #f7f7f7;
+    color: #333;
+	border: 1px solid #ccc;
+}
+.invoices-buttons-profies .circulars-item a {
+    color: #333;
+    border-left: 1px solid #33333336;
+}
+.table-lists-all {
+    width: 100%;
+    max-width: 100%;
+    border: 1px solid #ccc;
+}
+.table-lists-views {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    -ms-overflow-style: -ms-autohiding-scrollbar;
+    margin: 22px 0;
+}
+.table-lists-all th {
+    vertical-align: bottom;
+   border: 1px solid #ccc;
+    border-bottom-width: 1px;
+    border-top: 0;
+    padding: 0.75rem;
+	color: #2e3138;
+    font-size: 0.875rem;
+}
+.table-lists-all td {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    vertical-align: middle;
+	color: #2e3138;
+}
 @media (min-width:992px) and (max-width:1200px) {
 	.navbar-brand img {
     width: 250px;
@@ -2623,6 +2728,10 @@ a:hover {
   color: #0075BB;
 }
 
+.section-footer .item-list-a i.color-you-tube {
+  color: #FF0000;
+}
+
 .section-footer .widget-a .w-title-a {
   margin-bottom: 1rem;
 }
@@ -2639,3 +2748,6 @@ footer .copyright-footer {
 footer .credits {
   font-size: 14px;
 }
+html {
+   scroll-behavior: smooth; 
+  } 

@@ -1,0 +1,25 @@
+{% load static %}
+
+<div class="col-md-3 d-flex">
+    <div class="sidebar-menu-bar w-100">
+    <ul class="side-menu-block">
+        <li class="slide-nav-item {% if request.resolver_match.url_name == 'user_register_profile' %}active {% endif %}">
+        <a class="side-menu__item " data-bs-toggle="slide" href="{% url 'user_register_profile' %}"><i
+            class="side-menu__icon fe fe-home"></i><span class="side-menu__label">My Profile</span></a>
+        </li>
+        <li class="slide-nav-item {% if request.resolver_match.url_name == 'booking' %}active {% endif %}">
+        <a class="side-menu__item" data-bs-toggle="slide" href="{% url 'booking' %}"><i
+            class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Bookings</span></a>
+        </li>
+        <li class="slide-nav-item {% if request.resolver_match.url_name == 'invoices' %}active {% endif %}">
+        <a class="side-menu__item" data-bs-toggle="slide" href="{% url 'invoices' %}"><i
+            class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Invoices</span></a>
+        </li>
+        <li class="slide-nav-item {% if request.resolver_match.url_name == 'user_business_profile' %}active {% endif %}">
+        <a class="side-menu__item" data-bs-toggle="slide" href="{% url 'user_business_profile' %}"><i
+            class="side-menu__icon fe fe-home"></i><span class="side-menu__label">Business Profile</span></a>
+        </li>
+    </ul>
+
+    </div>
+</div>

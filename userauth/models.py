@@ -38,3 +38,12 @@ class Otp(models.Model):
     phone_number = models.CharField(max_length=15, unique=True)
     otp          = models.CharField(max_length=6, null=True, blank=True)
     is_verified  = models.BooleanField(default=False)
+
+
+
+class SiteProperty(models.Model):
+    title = models.CharField(max_length=255)
+    description = models.TextField()
+    image = models.ImageField(upload_to='properties/')
+    size = models.CharField(max_length=255)
+    type = models.CharField(max_length=255)

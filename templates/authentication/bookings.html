@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- ======= Property Search Section ======= -->
+{% include 'header.html' %}
+<main id="main">
+  <!-- ======= Intro Single ======= -->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        {% include 'authentication/profile-sidebar.html' %}
+        <div class="col-md-9">
+          <div class="bookings-buttons-profies d-flex flex-wrap gap-4">
+            <button type="submit" class="btn btn-a">On going booking</button>
+            <button type="submit" class="btn btn-a">Expired booking</button>
+          </div>
+          <div class="table-lists-views">
+            <table class="table-lists-all">
+              <thead>
+                <tr>
+                  <th class="text-center">Site Name</th>
+                  <th class="text-center">From</th>
+                  <th>To</th>
+                  <th class="text-center">Book again</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="align-middle text-center">
+                    <div class="custom-control-td">
+                      dummy
+                    </div>
+                  </td>
+                  <td class="align-middle text-center">
+                    <div class="custom-control-td">
+                      dummy
+                    </div>
+                  </td>
+                  <td class="text-nowrap align-middle">dummy</td>
+                  <td class="text-center align-middle">
+                    <div class="btn-group align-top">
+                      <button class="btn btn-sm btn-primary">Book again</button>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Intro Single-->
+
+
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+{% include 'footer1.html' %}
+<!-- End  Footer -->
+
+{% endblock content %}
