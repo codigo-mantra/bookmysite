@@ -84,11 +84,74 @@
 				<p class="d-none text-center" style="color: red; font-size: 12px;" id="invalid_password">Invalid Mpin</p>
 				<p class="d-none text-center" style="color: red; font-size: 12px;" id="id_required_mapin">Please Enter the Mpin</p>
 				<div class="modal-footer">
-					<a class="otp-timer" id="id_reset_mpin" href="">Reset Mpin</a>
+					<a class="otp-timer" id="id_reset_mpin" >Reset Mpin</a>
 					<button type="submit" class="btn btn-primary" id="id_for_login">Login</button>
 				</div>
 
 			</div>
+
+			<div class="fourth-step-modal-login d-none" id="id_reset_mpin_modal_login">
+				<div class="modal-body">
+					<h2>Your Phone</h2>
+					<h3>Phone Number</h3>
+					<form>
+						<div class="phone-form-group d-flex">
+							<div class="country">
+								<div id="country" class="select"><img src="{% static 'img/India-flag.svg' %}" /> +91
+								</div>
+								<div id="country-drop" class="dropdown">
+									<ul>
+										<li data-code="IN" data-name="india" data-cid="c32"><img
+												src="{% static 'img/India-flag.svg' %}" /> +91</li>
+										<li data-code="IN" data-name="Albania" data-cid="c33"><img
+												src="{% static 'img/India-flag.svg' %}" />+355</li>
+										<li data-code="DZ" data-name="Algeria" data-cid="c34"><img
+												src="{% static 'img/India-flag.svg' %}" /> +213</li>
+									</ul>
+								</div>
+							</div>
+							<div class="input-form-block">
+								<input type="text" class="form-control"  id="id_phone_number_mpin">
+							</div>
+						</div>
+						<br>
+						<div class="form-group d-flex">
+							<label for="password">New MPIN</label>
+							<input type="password" class="form-control" id="password" name="password">
+						</div>
+
+					</form>
+					<p class="d-none text-center" style="color: red; font-size: 12px;" id="id_error">Invalid Phone Number</p>
+				</div>
+                <span id="password-error" class="error"></span>
+
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="id_send_otp">Submit</button>
+					<p>I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a></p>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="fifth-step-modal-login d-none" id="set_mpin">
+				<div class="modal-body">
+					<h2>Set MPIN</h2>
+					<form>
+						<div class="form-group d-flex">
+							<label for="password">Set Your MPIN</label>
+							<input type="password" class="form-control" id="password_mpin" name="password">
+						</div>
+					</form>
+				</div>
+				<div class="modal-footer">
+					<button type="submit" class="btn btn-primary" id="send_mpin">Submit</button>
+					<p>I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a></p>
+				</div>
+			</div>
+
+                
 
 			{% comment %} <div class="third-step-modal-login d-none" id="id_third_step_modal_login">
 				<div class="modal-body">
@@ -110,3 +173,27 @@
 </div>
 
 
+{% block js %}
+<script>
+
+
+$("form").submit(function(event) {
+  var password = $("#password").val();
+  if(!(/^[0-9]{6}$/).test(password)) {
+		event.preventDefault();
+		$("#password-error").text("Password should be 6 digits");
+  	} else {
+    $("#password-error").text("");
+  	}
+});
+
+$("#password").on("input", function() {
+  if(!(/^[0-9]{6}$/).test(this.value)) {
+    $("#password-error").text("Password should be 6 digits");
+  } else {
+    $("#password-error").text("");
+  }
+});
+</script>
+
+{% endblock js %}

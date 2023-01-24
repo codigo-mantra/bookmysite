@@ -57,12 +57,31 @@ class UserRegisterProfile(View):
             user = authenticate(username=userprofile.username, password=password)
             if user is not None and user.check_password(password):
                 login(request, user)
-                return HttpResponseRedirect(reverse("user_business_profile"))
+                return JsonResponse({"message": "user created"}, status=200)
             else:
                 return HttpResponseRedirect(reverse("user_register_profile"))
         else:
             return HttpResponseRedirect(reverse("user_register_profile"))
-            
+
+
+
+class UserUpdateProfile(View):
+    def post(self,request):
+        is_updated = request.POST.get('_method' or None)
+        if is_updated == 'PUT':
+            update_data = {
+                'first_name': request.POST.get('first_name'),
+                'last_name': request.POST.get('last_name'),
+                'gender': request.POST.get('gender'),
+                'email': request.POST.get('email'),
+            }
+            user = User.objects.filter(id=request.user.id)
+            if user:
+                user.update(**update_data)
+                return HttpResponseRedirect(reverse("home"))
+            else:
+                return HttpResponseRedirect(reverse("home"))
+
 
 
 class LogOutView(View):
@@ -136,6 +155,11 @@ def send_otp(request):
 #     return render(request,template,{'phone_number':phone_number})
 
 
+class ForgetMpinView(View):
+    def post(self,request):
+        pass
+
+
 
 class LoginView(View):
     def post(self,request):
@@ -144,7 +168,7 @@ class LoginView(View):
         phone_number = request.POST.get("phone_number")
         password = request.POST.get("password")
         user = authenticate(request, phone_number=phone_number, password=password)
-        if user is not None and user.check_password(password):
+        if user is not None:
             login(request, user)
             is_logged_in = True
             print("User logged in successfully and Return True!")

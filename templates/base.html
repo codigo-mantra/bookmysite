@@ -87,7 +87,6 @@
             if(phone_number.length > 9){
                 $("#id_send_otp").text("Send OTP")
                 $("#id_error").addClass('d-none');
-                // send_otp_with_backend()
 
             }
         });
@@ -103,6 +102,7 @@
                     headers: {"X-CSRFToken": "{{ csrf_token}}"},
                     data: {"phone_number": code+phone_number,},
                     success: function(response){
+                        debugger
                         if(response.is_registerd === true && response.is_otp_verified === true) {
                             $('#id_first_step_modal_login').addClass("d-none");
                             $('#id_third_step_modal_login').removeClass("d-none");
@@ -147,7 +147,13 @@
             $("#id_first_step_modal_login").removeClass('d-none');
             clearInterval(timerId);
         });
+        
 
+        $("#id_reset_mpin").click(function(){
+            $("#id_third_step_modal_login").addClass('d-none')
+            $("#id_reset_mpin_modal_login").removeClass('d-none')
+
+        })
 
         $("#id_verify_otp").click(function() {
             var code = "+91"
@@ -166,12 +172,16 @@
                 data: {'otp': otp,'phn':code+phone_number},
                 success: function(data) {
                     if(data.message === "True"){
-                        window.location.href = "{% url 'user_register_profile' %}";
+                        debugger
+                        $("#id_second_step_modal_login").addClass('d-none')
+                        $("#set_mpin").removeClass('d-none')
+
+                        //.location.href = "{% url 'user_register_profile' %}";
+
                     }else{
                         $("#invalid_otp").removeClass('d-none');
                     }
                     
-
                 },
                 error: function(error) {
                     console.log(error);
@@ -191,8 +201,9 @@
             var fifth = $("#fifth_mpin").val();
             var sixth = $("#sixth_mpin").val();
             var password = first + second + third + fourth + fifth + sixth;
+            debugger
             $.ajax({
-                url: "{% url 'login_view' %}",
+                url: "{% url 'login' %}",
                 method: "POST",
                 headers: {"X-CSRFToken": "{{ csrf_token}}"},
                 data: {'phone_number':code+phone_number,'password':password},
@@ -206,10 +217,38 @@
                 },
                 error: function(error){
                         $("#invalid_password").removeClass('d-none');
+                        
                     }
             });
 
         });
+
+
+        $("#send_mpin").click(function(){
+            var phone_number = $("#id_phone_number").val();
+            var code = "+91";
+            var password = $("#password_mpin").val()
+            $.ajax({
+                url: "{% url 'user_register_profile' %}",
+                method: "POST",
+                headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                data: {'username':code+phone_number,'password':password,'email':'_@gmail.com'},
+                success: function(response) {
+                    console.log(response)
+                        $("#set_mpin").removeClass('d-none');
+                        debugger
+                        location.href = "{% url 'user_register_profile' %}";
+                },
+                error: function(response){
+                    console.log(response)
+                }
+
+            });
+
+        })
+
+
+
     </script>
     {% block js %}
     {% endblock js %}

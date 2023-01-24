@@ -13,15 +13,23 @@ class UserBusinessProfileForm(forms.ModelForm):
 
 class PersonRegisterForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput())
-    username = forms.CharField(required=False)
+    username = forms.CharField(required=True)
+    # email = forms.EmailField(required=False)
+
 
     def __init__(self, *args, **kwargs):
         super(PersonRegisterForm, self).__init__(*args, **kwargs)
-        attrs = {'class': 'form-control', 'required': True}
-        if self.instance and self.instance.pk:
-            self.fields.pop('username', None)
-        for field in self.fields.values():
-            field.widget.attrs = attrs
+        attrs = {'class': 'form-control', 'required': False}
+        self.fields['first_name'].required = False
+        self.fields['last_name'].required = False
+        self.fields['email'].required = False
+        self.fields['gender'].required = False
+
+
+        # if self.instance and self.instance.pk:
+        #     self.fields.pop('username', None)
+        # for field in self.fields.values():
+        #     field.widget.attrs = attrs
 
     def clean(self):
         cleaned_data = super(PersonRegisterForm, self).clean()
@@ -44,4 +52,9 @@ class PersonRegisterForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("first_name", "last_name", "username", "email", "password", "phone_number", "gender")
+
+        required = (
+            'username',
+
+        )
 

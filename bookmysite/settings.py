@@ -140,3 +140,5 @@ STATICFILES_DIRS = (
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+
+AUTHENTICATION_BACKENDS = ['userauth.customuserauth.PhoneNumberBackend', 'django.contrib.auth.backends.ModelBackend']

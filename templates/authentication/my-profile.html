@@ -60,7 +60,7 @@
             </div>
           </form>
           {% else %}
-          <form action="" method="POST" id="id_phonenumber_form" role="form">
+          <form action="{% url 'user_update_profile' %}" method="POST" id="id_phonenumber_form" role="form">
             <input type="hidden" name="_method" value="PUT">
             {% csrf_token %}
             <div class="row">
@@ -110,27 +110,28 @@
 
 {% block js %}
 <script>
-$("form").submit(function(event) {
-  var password = $("#password").val();
-  if(!(/^[0-9]{6}$/).test(password)) {
-    event.preventDefault();
-    $("#password-error").text("Password should be 6 digits");
-  } else {
-    $("#password-error").text("");
-  }
-});
+// $("form").submit(function(event) {
+//   debugger
+//   var password = $("#password").val();
+//   if(!(/^[0-9]{6}$/).test(password)) {
+//     event.preventDefault();
+//     $("#password-error").text("Password should be 6 digits");
+//   } else {
+//     $("#password-error").text("");
+//   }
+// });
 
-$("#password").on("input", function() {
-  if(!(/^[0-9]{6}$/).test(this.value)) {
-    $("#password-error").text("Password should be 6 digits");
-  } else {
-    $("#password-error").text("");
-  }
-});
+// $("#password").on("input", function() {
+//   if(!(/^[0-9]{6}$/).test(this.value)) {
+//     $("#password-error").text("Password should be 6 digits");
+//   } else {
+//     $("#password-error").text("");
+//   }
+// });
 
 
 </script>
 
 
 
-{% endblock %}
+{% endblock js %}
