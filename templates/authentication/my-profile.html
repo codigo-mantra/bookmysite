@@ -61,25 +61,24 @@
           </form>
           {% else %}
           <form action="{% url 'user_update_profile' %}" method="POST" id="id_phonenumber_form" role="form">
-            <input type="hidden" name="_method" value="PUT">
             {% csrf_token %}
             <div class="row">
               <div class="col-md-6 mb-3">
                 <div class="form-group"> 
                   <input type="text" name="first_name" id="first_name" class="form-control form-control-lg form-control-a"
-                    placeholder="First Name" required value="{{ user_obj.first_name}}">
+                    placeholder="First Name" required value="{% if user_obj.first_name == None %}{% else %}{{ user_obj.first_name}}{% endif %}">
                 </div>
               </div>
               <div class="col-md-6 mb-3">
                 <div class="form-group">
                   <input type="text" name="last_name" id="last_name" class="form-control form-control-lg form-control-a"
-                    placeholder="Last Name" required value="{{user_obj.last_name}}">
+                    placeholder="Last Name" required value="{% if user_obj.last_name == None %}{% else %}{{user_obj.last_name}}{% endif %}">
                 </div>
               </div>
               <div class="col-md-12 mb-3">
                 <div class="form-group">
                   <input type="text" name="gender" id="gender" class="form-control form-control-lg form-control-a"
-                    placeholder="Gender" required value="{{user_obj.gender}}">
+                    placeholder="Gender" required value="{% if user_obj.gender == None %}{% else %}{{user_obj.gender}}{% endif %}">
                 </div>
               </div>
               <div class="col-md-12 mb-3">

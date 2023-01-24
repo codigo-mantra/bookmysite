@@ -7,6 +7,9 @@ from .models import Otp, User
 from django.contrib.auth import authenticate, login, logout
 from .forms import PersonRegisterForm, UserBusinessProfileForm
 from django.urls import reverse
+from django.contrib.auth import get_user_model
+
+# User = get_user_model()
 
 class UserRegisterProfile(View):
 
@@ -19,32 +22,6 @@ class UserRegisterProfile(View):
         return render(request,template,{'phone_number':phone_number, "user_obj": user_obj})
 
     def post(self, request):
-        # is_updated = request.POST.get('_method' or None)
-        # if is_updated == 'PUT':
-        #     user = request.user
-        #     form = PersonRegisterForm(request.POST, instance=user)
-        #     if form.is_valid():
-        #         form.save()
-        #         return HttpResponseRedirect(reverse("home"))
-        #     else:
-        #         return HttpResponseRedirect(reverse("home"))
-
-        is_updated = request.POST.get('_method' or None)
-        if is_updated == 'PUT':
-            update_data = {
-                'first_name': request.POST.get('first_name'),
-                'last_name': request.POST.get('last_name'),
-                'gender': request.POST.get('gender'),
-                'email': request.POST.get('email'),
-            }
-            user = User.objects.filter(id=request.user.id)
-            if user:
-                user.update(**update_data)
-                return HttpResponseRedirect(reverse("home"))
-            else:
-                return HttpResponseRedirect(reverse("home"))
-
-
 
         form = PersonRegisterForm(request.POST or None)
         phone_number = request.session.get('phone_number')
@@ -67,20 +44,20 @@ class UserRegisterProfile(View):
 
 class UserUpdateProfile(View):
     def post(self,request):
-        is_updated = request.POST.get('_method' or None)
-        if is_updated == 'PUT':
-            update_data = {
-                'first_name': request.POST.get('first_name'),
-                'last_name': request.POST.get('last_name'),
-                'gender': request.POST.get('gender'),
-                'email': request.POST.get('email'),
-            }
-            user = User.objects.filter(id=request.user.id)
-            if user:
-                user.update(**update_data)
-                return HttpResponseRedirect(reverse("home"))
-            else:
-                return HttpResponseRedirect(reverse("home"))
+
+        update_data = {
+            'first_name': request.POST.get('first_name'),
+            'last_name': request.POST.get('last_name'),
+            'gender': request.POST.get('gender'),
+            'email': request.POST.get('email'),
+        }
+        user = User.objects.filter(id=request.user.id)
+        if user:
+            user.update(**update_data)
+            return HttpResponseRedirect(reverse("user_business_profile"))
+
+        else:
+            return HttpResponseRedirect(reverse("home"))
 
 
 
@@ -157,7 +134,18 @@ def send_otp(request):
 
 class ForgetMpinView(View):
     def post(self,request):
-        pass
+        # user = User.objects.get(phone_number=request.POST.get('phone_number'))
+        username = request.POST.get('phone_number')
+        user = User.objects.get(username=username)
+
+        if user:
+            password = request.POST.get('password')
+            user.set_password(password)
+            user.save()
+            return JsonResponse({"msg": "MPIN chnaged"}, status=200)
+        else:
+            return JsonResponse({"msg": "not updated"}, status=200)
+
 
 
 
@@ -279,17 +267,38 @@ class PropertySearchGrid(View):
 
 class UserBusinessProfile(View):
     def get(self,request):
+        user_obj = None
         template = 'authentication/business-profile.html'
         print(request.user, "&&&&&&&&&&&&&&&&&&&&&&&&&")
         user_id = request.user.pk
-        return render(request,template, {'user_id': user_id})
+        user_obj = request.user
+        return render(request,template, {'user_id': user_id,'user_obj':user_obj})
 
-    def post(self, request):
-        form = UserBusinessProfileForm(request.POST or None)
-        if form.is_valid():
-            user_profile = request.user.pk
-            form.save()
-            return HttpResponseRedirect(reverse('home'))
-        else:
+    def post(self, request):    
+        try:
+            user_obj = request.user
+            user_business_profile = user_obj.user_business_profile
+            form = UserBusinessProfileForm(request.POST, instance=user_business_profile)
+            if form.is_valid():
+                form.save()
+                return HttpResponseRedirect(reverse('home'))
             return HttpResponseRedirect(reverse("user_business_profile"))
-        
+        except:
+            form = UserBusinessProfileForm(request.POST or None)
+            if form.is_valid():
+                user_profile = request.user.pk
+                form.save()
+                return HttpResponseRedirect(reverse('home'))
+            else:
+                return HttpResponseRedirect(reverse("user_business_profile"))
+
+
+# class UpdateUserBusinessProfile(View):
+#     def post(self,request):
+#         user_obj = request.user
+#         user_business_profile = user_obj.user_business_profile
+#         form = UserBusinessProfileForm(request.POST, instance=user_business_profile)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect(reverse('home'))
+#         return HttpResponseRedirect(reverse("user_business_profile"))

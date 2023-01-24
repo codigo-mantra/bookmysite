@@ -94,7 +94,7 @@
 				<div class="modal-body">
 					<h2>Your Phone</h2>
 					<h3>Phone Number</h3>
-					<form>
+					<form id="idnewmpin" class="password-form">
 						<div class="phone-form-group d-flex">
 							<div class="country">
 								<div id="country" class="select"><img src="{% static 'img/India-flag.svg' %}" /> +91
@@ -117,16 +117,15 @@
 						<br>
 						<div class="form-group d-flex">
 							<label for="password">New MPIN</label>
-							<input type="password" class="form-control" id="password" name="password">
+							<input type="number" class="form-control password-input" id="password" name="password" maxlength="6" min="100000" max="999999">
 						</div>
 
 					</form>
-					<p class="d-none text-center" style="color: red; font-size: 12px;" id="id_error">Invalid Phone Number</p>
+					<p class="d-none text-center" style="color: red; font-size: 12px;" id="invalid_phone_number">Invalid Phone Number</p>
 				</div>
-                <span id="password-error" class="error"></span>
-
+				<p class="error" id="password-error"></p>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" id="id_send_otp">Submit</button>
+					<button type="submit" class="btn btn-primary" id="reset_mpin_submit_button">Submit</button>
 					<p>I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a></p>
 				</div>
 			</div>
@@ -138,15 +137,16 @@
 			<div class="fifth-step-modal-login d-none" id="set_mpin">
 				<div class="modal-body">
 					<h2>Set MPIN</h2>
-					<form>
+					<form id="setmpin" class="password-form">
 						<div class="form-group d-flex">
 							<label for="password">Set Your MPIN</label>
-							<input type="password" class="form-control" id="password_mpin" name="password">
+							<input type="number"  class="form-control password-input" id="password_mpin" name="password">
 						</div>
 					</form>
 				</div>
+				<p class="error" id="password-mpin-error"></p>
 				<div class="modal-footer">
-					<button type="submit" class="btn btn-primary" id="send_mpin">Submit</button>
+					<button type="submit"  class="btn btn-primary" id="send_mpin">Submit</button>
 					<p>I agree to the <a href="">Terms & Conditions</a> and <a href="">Privacy Policy</a></p>
 				</div>
 			</div>
@@ -177,23 +177,37 @@
 <script>
 
 
-$("form").submit(function(event) {
-  var password = $("#password").val();
-  if(!(/^[0-9]{6}$/).test(password)) {
-		event.preventDefault();
-		$("#password-error").text("Password should be 6 digits");
-  	} else {
-    $("#password-error").text("");
-  	}
-});
-
-$("#password").on("input", function() {
+$(".password-input").on("input", function() {
   if(!(/^[0-9]{6}$/).test(this.value)) {
+    if(this.id=='password'){
     $("#password-error").text("Password should be 6 digits");
+    }
+    if(this.id=='password_mpin'){
+    $("#password-mpin-error").text("Password should be 6 digits");
+    }
   } else {
+    if(this.id=='password'){
     $("#password-error").text("");
+    }
+    if(this.id=='password_mpin'){
+    $("#password-mpin-error").text("");
+    }
+  }
+  if(this.value.length >= 6) {
+    this.value = this.value.slice(0, 6);
   }
 });
+
+
+
+
+
+
 </script>
 
 {% endblock js %}
+
+
+
+
+

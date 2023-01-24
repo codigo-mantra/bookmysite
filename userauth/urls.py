@@ -22,6 +22,10 @@ urlpatterns = [
     path("user-register-profile/", views.UserRegisterProfile.as_view(), name='user_register_profile'),
     path("user-business-register-profile/", views.UserBusinessProfile.as_view(), name='user_business_profile'),
     path("user-update-profile/", views.UserUpdateProfile.as_view(), name='user_update_profile'),
+    # path("user-update-business-profile/", views.UpdateUserBusinessProfile.as_view(), name='user_update_business_profile'),
+    path("reset-mpin/", views.ForgetMpinView.as_view(), name='mpin_reset'),
+
+
 
     path("login/", views.LoginView.as_view(), name='login'),
     path("logout/", views.LogOutView.as_view(), name='logout'),

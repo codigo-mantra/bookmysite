@@ -210,7 +210,7 @@
                 success: function(response) {
                     console.log(response)
                     if(response.is_logged_in === true){
-                        window.location.href = "{% url 'home' %}";
+                        window.location.href = "{% url 'user_register_profile' %}";
                     }else{
                         $("#invalid_password").removeClass('d-none');
                     }
@@ -223,8 +223,22 @@
 
         });
 
+        const mpinInput = document.getElementById('password_mpin');
+        const submitBtn = document.getElementById('send_mpin');
+        mpinInput.addEventListener('input', function() {
+            if (this.value.length === 6) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        });
+        const form = document.getElementById('setmpin');
+            form.addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
 
         $("#send_mpin").click(function(){
+        if(submitBtn.disabled === false){
             var phone_number = $("#id_phone_number").val();
             var code = "+91";
             var password = $("#password_mpin").val()
@@ -236,18 +250,58 @@
                 success: function(response) {
                     console.log(response)
                         $("#set_mpin").removeClass('d-none');
-                        debugger
                         location.href = "{% url 'user_register_profile' %}";
                 },
                 error: function(response){
                     console.log(response)
                 }
-
             });
-
+            }else {
+                alert("MPIN should be 6 digit!");
+            }
         })
 
 
+
+
+
+
+
+
+        const mpinInputpassword = document.getElementById('password');
+        const submitBtnn = document.getElementById('reset_mpin_submit_button');
+        mpinInputpassword.addEventListener('input', function() {
+        if (this.value.length === 6) {
+            submitBtnn.disabled = false;
+        } else {
+            submitBtnn.disabled = true;
+        }
+        });
+
+        $("#reset_mpin_submit_button").click(function(){
+        if(submitBtn.disabled === false){
+            var phone_number = $("#id_phone_number").val();
+            var code = "+91";
+            var password = $("#password").val()
+            $.ajax({
+                url: "{% url 'mpin_reset' %}",
+                method: "POST",
+                headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                data: {'phone_number':code+phone_number,'password':password},
+                success: function(response) {
+                    console.log(response)
+                        $("#id_reset_mpin_modal_login").addClass('d-none');
+                        //$("#id_second_step_modal_login").removeClass('d-none');
+                        location.href = "{% url 'home' %}";
+                },
+                error: function(response){
+                    console.log(response)
+                }
+            });
+            }else {
+                alert("MPIN should be 6 digit!");
+            }
+        })
 
     </script>
     {% block js %}
