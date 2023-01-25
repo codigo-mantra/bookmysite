@@ -1,0 +1,136 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- ======= Property Search Section ======= -->
+{% include 'header.html' %}
+<main id="main">
+
+  <!-- ======= Intro Single ======= -->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        {% include 'authentication/profile-sidebar.html' %}
+        <div class="col-md-9">
+          {% if user_obj == None %}
+          <form action="" method="POST" id="id_phonenumber_form" role="form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="form-group"> 
+                  <input type="text" name="first_name" id="first_name" class="form-control form-control-lg form-control-a"
+                    placeholder="First Name" required value="{{ user_obj.first_name}}">
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <input type="text" name="last_name" id="last_name" class="form-control form-control-lg form-control-a"
+                    placeholder="Last Name" required value="{{user_obj.last_name}}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input type="text" name="gender" id="gender" class="form-control form-control-lg form-control-a"
+                    placeholder="Gender" required value="{{user_obj.gender}}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input name="email" id="email" type="email" class="form-control form-control-lg form-control-a"
+                    placeholder="Your Email" required value="{{user_obj.email}}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input type="number" name="password" id="password" class="form-control form-control-lg form-control-a"
+                  placeholder="Password" pattern="[0-9]{6}" title="Password should be 6 digits" required>
+                <span id="password-error" class="error"></span>
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input type="text" name="phone_number" id="phone_number" class="form-control form-control-lg form-control-a"
+                  placeholder="{{phone_number}}" disabled>
+                </div>
+              </div>
+
+              <div class="col-md-12 text-center">
+
+                <button type="submit" class="btn btn-a">Register</button>
+              </div>
+            </div>
+          </form>
+          {% else %}
+          <form action="{% url 'user_update_profile' %}" method="POST" id="id_phonenumber_form" role="form">
+            {% csrf_token %}
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <div class="form-group"> 
+                  <input type="text" name="first_name" id="first_name" class="form-control form-control-lg form-control-a"
+                    placeholder="First Name" required value="{% if user_obj.first_name == None %}{% else %}{{ user_obj.first_name}}{% endif %}">
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <input type="text" name="last_name" id="last_name" class="form-control form-control-lg form-control-a"
+                    placeholder="Last Name" required value="{% if user_obj.last_name == None %}{% else %}{{user_obj.last_name}}{% endif %}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input type="text" name="gender" id="gender" class="form-control form-control-lg form-control-a"
+                    placeholder="Gender" required value="{% if user_obj.gender == None %}{% else %}{{user_obj.gender}}{% endif %}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input name="email" id="email" type="email" class="form-control form-control-lg form-control-a"
+                    placeholder="Your Email" required value="{{user_obj.email}}">
+                </div>
+              </div>
+
+              <div class="col-md-12 text-center">
+                <button type="submit" class="btn btn-a">Update</button>
+              </div>
+            </div>
+          </form>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- End Intro Single-->
+</main><!-- End #main -->
+
+<!-- ======= Footer ======= -->
+{% include 'footer1.html' %}
+<!-- End  Footer -->
+
+{% endblock content %}
+
+{% block js %}
+<script>
+// $("form").submit(function(event) {
+//   debugger
+//   var password = $("#password").val();
+//   if(!(/^[0-9]{6}$/).test(password)) {
+//     event.preventDefault();
+//     $("#password-error").text("Password should be 6 digits");
+//   } else {
+//     $("#password-error").text("");
+//   }
+// });
+
+// $("#password").on("input", function() {
+//   if(!(/^[0-9]{6}$/).test(this.value)) {
+//     $("#password-error").text("Password should be 6 digits");
+//   } else {
+//     $("#password-error").text("");
+//   }
+// });
+
+
+</script>
+
+
+
+{% endblock js %}

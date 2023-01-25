@@ -1,0 +1,155 @@
+
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <!-- ======= Property Search Section ======= -->
+  {% include 'header.html' %}
+  <main id="main">
+    <!-- ======= Property Grid ======= -->
+    <section class="intro-single property-grid grid">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="card-box-a card-shadow">
+                <div class="img-box-a">
+                  <img src="{% static '/img/property-10.jpg' %}" alt="" class="img-a img-fluid">
+                </div>
+                <div class="card-overlay">
+                  <div class="card-overlay-a-checkbox">
+				  <div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="">
+					</div>
+				  </div>
+                  <div class="card-overlay-a-content">
+                    <div class="card-header-a">
+                      <h2 class="card-title-a">
+                        <a href="property-single.html">204 Montal
+                          <br> South Bela Two</a>
+                      </h2>
+                    </div>
+                    <div class="card-body-a">
+                      <a href="checkout-page.html" class="link-a">Click here to view
+                        <span class="bi bi-chevron-right"></span>
+                      </a>
+                    </div>
+                    <div class="card-footer-a">
+                      <ul class="card-info d-flex justify-content-around">
+                        <li>
+                          <h4 class="card-info-title">Size</h4>
+                          <span>340m
+                          </span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Type</h4>
+                          <span>2</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+		  <div class="col-md-4">
+            <div class="card-box-a card-shadow">
+                <div class="img-box-a">
+                  <img src="{% static '/img/property-10.jpg' %}" alt="" class="img-a img-fluid">
+                </div>
+                <div class="card-overlay">
+                  <div class="card-overlay-a-checkbox">
+				  <div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="">
+					</div>
+				  </div>
+                  <div class="card-overlay-a-content">
+                    <div class="card-header-a">
+                      <h2 class="card-title-a">
+                        <a href="property-single.html">204 Montal
+                          <br> South Bela Two</a>
+                      </h2>
+                    </div>
+                    <div class="card-body-a">
+                      <a href="checkout-page.html" class="link-a">Click here to view
+                        <span class="bi bi-chevron-right"></span>
+                      </a>
+                    </div>
+                    <div class="card-footer-a">
+                      <ul class="card-info d-flex justify-content-around">
+                        <li>
+                          <h4 class="card-info-title">Size</h4>
+                          <span>340m
+                          </span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Type</h4>
+                          <span>2</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+		  <div class="col-md-4">
+            <div class="card-box-a card-shadow">
+                <div class="img-box-a">
+                  <img src="{% static '/img/property-10.jpg' %}" alt="" class="img-a img-fluid">
+                </div>
+                <div class="card-overlay">
+                  <div class="card-overlay-a-checkbox">
+				  <div class="form-check">
+				  <input class="form-check-input" type="checkbox" value="">
+					</div>
+				  </div>
+                  <div class="card-overlay-a-content">
+                    <div class="card-header-a">
+                      <h2 class="card-title-a">
+                        <a href="checkout-page.html">204 Montal
+                          <br> South Bela Two</a>
+                      </h2>
+                    </div>
+                    <div class="card-body-a">
+                      <a href="property-single.html" class="link-a">Click here to view
+                        <span class="bi bi-chevron-right"></span>
+                      </a>
+                    </div>
+                    <div class="card-footer-a">
+                      <ul class="card-info d-flex justify-content-around">
+                        <li>
+                          <h4 class="card-info-title">Size</h4>
+                          <span>340m
+                          </span>
+                        </li>
+                        <li>
+                          <h4 class="card-info-title">Type</h4>
+                          <span>2</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          </div>
+        </div>
+      </div>
+    </section><!-- End Property Grid Single-->
+
+  </main><!-- End #main -->
+  <!-- ======= Footer ======= -->
+  {% include 'footer1.html' %}
+  <!-- End  Footer -->
+
+{% endblock content %}
+
+{% block js %}
+<script>
+jQuery("a[href^='#']").click(function(e) {
+	e.preventDefault();
+	
+	var position = jQuery(jQuery(this).attr("href")).offset().top;
+
+	jQuery("body, html").animate({
+		scrollTop: position
+	}, 1000 );
+});
+</script>
+{% endblock js %}

@@ -76,7 +76,7 @@
             <a class="nav-link {% if request.resolver_match.url_name == 'circulars' %}active {% endif %}" href="{% url 'circulars' %}">Circulars</a>
           </li>
 		   <li class="nav-item">
-            <a class="nav-link " href="#">Complaints</a>
+            <a class="nav-link "  href="#scroll">Complaints</a>
           </li>
           <li class="nav-item">
             <a class="nav-link {% if request.resolver_match.url_name == 'contact_us' %}active {% endif %}" href="{% url 'contact_us' %}">Contact Us</a>
@@ -84,13 +84,20 @@
           </li>
         </ul>
       </div>
+      
 	  <div class="rightbuttons-bar">
       <button type="button" class="btn btn-b-n navbar-toggle-box navbar-toggle-box-collapse" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01">
         <i class="bi bi-search"></i>
       </button>
-	  <button type="button" class="login-user-button" data-bs-toggle="modal" data-bs-target="#loginModal">
+      {% if request.user.is_authenticated %}
+	  <button type="button" class="login-user-button">
+        <a href="{% url 'user_register_profile' %}"><i class="bi bi-person-circle"></i></a>
+	  </button>
+      {% else %}
+      <button type="button" class="login-user-button" data-bs-toggle="modal" data-bs-target="#loginModal">
 	  <i class="bi bi-person-circle"></i>
 	  </button>
+      {% endif %}
 	  </div>
     </div>
   <div class="top-marquee-bar">
@@ -101,3 +108,23 @@
   </div>
   </div>
   </nav>
+
+  {% block js %}
+  <script>
+$("a[href^='#']").click(function(e) {
+    debugger
+    e.preventDefault();
+    var currentUrl = window.location.href;
+    if(currentUrl.indexOf("index") == -1){
+        window.location.href = "/#scroll";
+    }else{
+        var position = $($(this).attr("href")).offset().top;
+        $("body, html").animate({
+            scrollTop: position
+        }, 700);
+    }
+});
+
+
+</script>
+{% endblock js %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<!-- ======= Property Search Section ======= -->
+{% include 'header.html' %}
+<main id="main">
+  <!-- ======= Intro Single ======= -->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        {% include 'authentication/profile-sidebar.html' %}
+        <div class="col-md-9">
+          <form action="{% url 'user_business_profile' %}" method="POST" id="id_business_profile_form" role="form">
+            <div class="row">
+            {% csrf_token %}
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <input type="text"  name="business_name" id="business_name" class="form-control form-control-lg form-control-a"
+                    placeholder="Business Name" required value="{% if user_obj.user_business_profile.business_name == None %}{% else %}{{ user_obj.user_business_profile.business_name}}{% endif %}"> 
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <div class="form-group">
+                  <input type="text" name="business_type" id="business_type" class="form-control form-control-lg form-control-a"
+                    placeholder="Business Type" required value="{% if user_obj.user_business_profile.business_type == None %}{% else %}{{ user_obj.user_business_profile.business_type}}{% endif %}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input type="text" name="office_address" id="office_address" class="form-control form-control-lg form-control-a"
+                    placeholder="Office Address" required value="{% if user_obj.user_business_profile.office_address == None %}{% else %}{{ user_obj.user_business_profile.office_address}}{% endif %}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-3">
+                <div class="form-group">
+                  <input name="office_phone_number" id="office_number" type="number" class="form-control form-control-lg form-control-a"
+                    placeholder="office Phone Number" required value="{% if user_obj.user_business_profile.office_phone_number == None %}{% else %}{{ user_obj.user_business_profile.office_phone_number}}{% endif %}">
+                </div>
+              </div>
+              <div class="col-md-12 mb-4">
+                <div class="form-group">
+                  <textarea name="about_business" id="about_business" class="form-control" cols="45" rows="6"
+                    placeholder="Tell us about what your business do"></textarea>
+                </div>
+              </div>
+              <div class="col-md-12 text-center">
+                <input type="hidden" name="user" value="{{user_id}}">
+                <button type="submit" class="btn btn-a">Register</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Intro Single-->
+</main><!-- End #main -->
+{% include 'footer1.html' %}
+<!-- End  Footer -->
+
+
+{% endblock content %}
+
+{% block js %}
+<script>
+  $("#about_business").val("{% if user_obj.user_business_profile.about_business == None %}{% else %}{{ user_obj.user_business_profile.about_business}}{% endif %}");
+</script>
+
+{% endblock js %}

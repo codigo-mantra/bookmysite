@@ -15,8 +15,18 @@ urlpatterns = [
     path("agent-grid/", views.AgentGridView.as_view(), name='agent_grid'),
     path("agent-single/", views.AgentSingleView.as_view(), name='agent_single'),
     path("sites/", views.SiteView.as_view(), name='sites'),
+    path("booking/", views.BookingView.as_view(), name='booking'),
+    path("invoices/", views.InvoicesView.as_view(), name='invoices'),
+    path("property-search-grid/", views.PropertySearchGrid.as_view(), name='property_search_grid'),
+
     path("user-register-profile/", views.UserRegisterProfile.as_view(), name='user_register_profile'),
     path("user-business-register-profile/", views.UserBusinessProfile.as_view(), name='user_business_profile'),
-    path("login-view/", views.LoginView.as_view(), name='login_view'),
+    path("user-update-profile/", views.UserUpdateProfile.as_view(), name='user_update_profile'),
+    # path("user-update-business-profile/", views.UpdateUserBusinessProfile.as_view(), name='user_update_business_profile'),
+    path("reset-mpin/", views.ForgetMpinView.as_view(), name='mpin_reset'),
+
+
+
+    path("login/", views.LoginView.as_view(), name='login'),
     path("logout/", views.LogOutView.as_view(), name='logout'),
 ]

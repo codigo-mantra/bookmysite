@@ -42,6 +42,8 @@
 	<script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
 	<script src="{% static 'vendor/swiper/swiper-bundle.min.js' %}"></script>
 	<script src="{% static 'vendor/php-email-form/validate.js' %}"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	<!-- Template Main JS File -->
 	<script src="{% static 'js/main.js' %}"></script>
 	<script>
@@ -85,11 +87,11 @@
             if(phone_number.length > 9){
                 $("#id_send_otp").text("Send OTP")
                 $("#id_error").addClass('d-none');
-                // send_otp_with_backend()
 
             }
         });
-        
+
+        var timerId;
         $("#id_send_otp").click(function(){
             var phone_number = $("#id_phone_number").val();
             if(phone_number.length > 9){
@@ -100,6 +102,7 @@
                     headers: {"X-CSRFToken": "{{ csrf_token}}"},
                     data: {"phone_number": code+phone_number,},
                     success: function(response){
+                        debugger
                         if(response.is_registerd === true && response.is_otp_verified === true) {
                             $('#id_first_step_modal_login').addClass("d-none");
                             $('#id_third_step_modal_login').removeClass("d-none");
@@ -111,7 +114,9 @@
                             $('#id_first_step_modal_login').addClass("d-none");
                             var timeLeft = 30;
                             var elem = document.getElementById('id_otp_valid_time')
-                            var timerId = setInterval(countdown, 1000);
+                            //var timerId = setInterval(countdown, 1000);
+                            timerId = setInterval(countdown, 1000);
+
                             function countdown() {
                                 if (timeLeft == -1) {
                                     clearTimeout(timerId);
@@ -135,6 +140,21 @@
             }
         });
 
+
+
+        $(".back-login-btn").click(function(){
+            $("#id_second_step_modal_login").addClass('d-none')
+            $("#id_first_step_modal_login").removeClass('d-none');
+            clearInterval(timerId);
+        });
+        
+
+        $("#id_reset_mpin").click(function(){
+            $("#id_third_step_modal_login").addClass('d-none')
+            $("#id_reset_mpin_modal_login").removeClass('d-none')
+
+        })
+
         $("#id_verify_otp").click(function() {
             var code = "+91"
             var phone_number = $("#id_phone_number").val();
@@ -152,15 +172,21 @@
                 data: {'otp': otp,'phn':code+phone_number},
                 success: function(data) {
                     if(data.message === "True"){
-                        window.location.href = "{% url 'user_register_profile' %}";
+                        debugger
+                        $("#id_second_step_modal_login").addClass('d-none')
+                        $("#set_mpin").removeClass('d-none')
+
+                        //.location.href = "{% url 'user_register_profile' %}";
+
                     }else{
                         $("#invalid_otp").removeClass('d-none');
                     }
                     
-
                 },
                 error: function(error) {
                     console.log(error);
+                    $("#invalid_otp").removeClass('d-none');
+
                 }
             });
         });
@@ -175,25 +201,108 @@
             var fifth = $("#fifth_mpin").val();
             var sixth = $("#sixth_mpin").val();
             var password = first + second + third + fourth + fifth + sixth;
+            debugger
             $.ajax({
-                url: "{% url 'login_view' %}",
+                url: "{% url 'login' %}",
                 method: "POST",
                 headers: {"X-CSRFToken": "{{ csrf_token}}"},
                 data: {'phone_number':code+phone_number,'password':password},
                 success: function(response) {
                     console.log(response)
                     if(response.is_logged_in === true){
-                        window.location.href = "{% url 'home' %}";
+                        window.location.href = "{% url 'user_register_profile' %}";
                     }else{
                         $("#invalid_password").removeClass('d-none');
                     }
                 },
                 error: function(error){
                         $("#invalid_password").removeClass('d-none');
+                        
                     }
             });
 
         });
+
+        const mpinInput = document.getElementById('password_mpin');
+        const submitBtn = document.getElementById('send_mpin');
+        mpinInput.addEventListener('input', function() {
+            if (this.value.length === 6) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        });
+        const form = document.getElementById('setmpin');
+            form.addEventListener('submit', function(event) {
+            event.preventDefault();
+        });
+
+        $("#send_mpin").click(function(){
+        if(submitBtn.disabled === false){
+            var phone_number = $("#id_phone_number").val();
+            var code = "+91";
+            var password = $("#password_mpin").val()
+            $.ajax({
+                url: "{% url 'user_register_profile' %}",
+                method: "POST",
+                headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                data: {'username':code+phone_number,'password':password,'email':'_@gmail.com'},
+                success: function(response) {
+                    console.log(response)
+                        $("#set_mpin").removeClass('d-none');
+                        location.href = "{% url 'user_register_profile' %}";
+                },
+                error: function(response){
+                    console.log(response)
+                }
+            });
+            }else {
+                alert("MPIN should be 6 digit!");
+            }
+        })
+
+
+
+
+
+
+
+
+        const mpinInputpassword = document.getElementById('password');
+        const submitBtnn = document.getElementById('reset_mpin_submit_button');
+        mpinInputpassword.addEventListener('input', function() {
+        if (this.value.length === 6) {
+            submitBtnn.disabled = false;
+        } else {
+            submitBtnn.disabled = true;
+        }
+        });
+
+        $("#reset_mpin_submit_button").click(function(){
+        if(submitBtn.disabled === false){
+            var phone_number = $("#id_phone_number").val();
+            var code = "+91";
+            var password = $("#password").val()
+            $.ajax({
+                url: "{% url 'mpin_reset' %}",
+                method: "POST",
+                headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                data: {'phone_number':code+phone_number,'password':password},
+                success: function(response) {
+                    console.log(response)
+                        $("#id_reset_mpin_modal_login").addClass('d-none');
+                        //$("#id_second_step_modal_login").removeClass('d-none');
+                        location.href = "{% url 'home' %}";
+                },
+                error: function(response){
+                    console.log(response)
+                }
+            });
+            }else {
+                alert("MPIN should be 6 digit!");
+            }
+        })
+
     </script>
     {% block js %}
     {% endblock js %}

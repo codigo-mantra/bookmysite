@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+{% include 'header.html' %}
+<main id="main">
+  <!-- ======= Intro Single ======= -->
+  <section class="intro-single">
+    <div class="container">
+      <div class="row">
+        {% include 'authentication/profile-sidebar.html' %}
+        <div class="col-md-9">
+          <div class="invoices-buttons-profies">
+            <div class="circulars-items">
+              <div class="circulars-item">
+                <h5>Invoice name</h5>
+                <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+              </div>
+              <div class="circulars-item">
+                <h5>Invoice name</h5>
+                <a href="{% static '/img/dummy.pdf' %}" target="_blank"><i class="bi bi-arrow-down-circle"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section><!-- End Intro Single-->
+</main>
+{% include 'footer1.html' %}
+<!-- End  Footer -->
+
+{% endblock content %}
