@@ -10,8 +10,11 @@ from django.contrib.auth.mixins import UserPassesTestMixin
 class HomePage(View):
     def get(self, request):
         template = 'customers/index.html'
+        context = {}
+        properties_obj = AdvertisementSite.objects.all()
+        context['properties_obj'] = properties_obj
         print("The current user =====",request.user)
-        return render(request, template)
+        return render(request, template,context)
 
 
 class AddNewAdvertisementSiteView(UserPassesTestMixin, View):
@@ -92,7 +95,7 @@ class DashboardInvoiceView(UserPassesTestMixin,View):
 
     def handle_no_permission(self):
         return redirect('home')
-        
+
     def get(self,request):
         template = 'dashboard/invoice.html'
         return render(request, template)

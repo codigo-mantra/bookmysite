@@ -152,22 +152,23 @@
 
       <div id="property-carousel" class="swiper">
         <div class="swiper-wrapper">
-
+          {% for obj in properties_obj %}
           <div class="carousel-item-b swiper-slide">
             <div class="card-box-a card-shadow">
+              {% for image in obj.property_image.all %}
               <div class="img-box-a">
-                <img src="{% static '/img/property-6.jpg' %}" alt="" class="img-a img-fluid">
+                <img src="{{ image.image.url }}" alt="" class="img-a img-fluid">
               </div>
+              {% endfor %}
               <div class="card-overlay">
                 <div class="card-overlay-a-content">
                   <div class="card-header-a">
                     <h2 class="card-title-a">
-                      <a href="{% url 'property_single' '1' %}">206 Mount
-                        <br /> Olive Road Two</a>
+                      <a href="{% url 'property_single' obj.id %}">{{obj.Name}}</a>
                     </h2>
                   </div>
                   <div class="card-body-a">
-                    <a href="{% url 'property_single' '1' %}" class="link-a">Click here to view
+                    <a href="{% url 'property_single' obj.id %}" class="link-a">Click here to view
                       <span class="bi bi-chevron-right"></span>
                     </a>
                   </div>
@@ -175,12 +176,12 @@
                     <ul class="card-info d-flex justify-content-around">
                       <li>
                         <h4 class="card-info-title">Size</h4>
-                        <span>340m
+                        <span>{{obj.size}}
                         </span>
                       </li>
                       <li>
                         <h4 class="card-info-title">Type</h4>
-                        <span>2</span>
+                        <span>{{obj.type}}</span>
                       </li>
                     </ul>
                   </div>
@@ -188,114 +189,7 @@
               </div>
             </div>
           </div><!-- End carousel item -->
-
-          <div class="carousel-item-b swiper-slide">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="{% static '/img/property-3.jpg' %}" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="{% url 'property_single' '1' %}">157 West
-                        <br /> Central Park</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <a href="{% url 'property_single' '1' %}" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Size</h4>
-                        <span>340m
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Type</h4>
-                        <span>2</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- End carousel item -->
-
-          <div class="carousel-item-b swiper-slide">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="{% static '/img/property-7.jpg' %}" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="{% url 'property_single' '1' %}">245 Azabu
-                        <br /> Nishi Park let</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <a href="{% url 'property_single' '1' %}" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Size</h4>
-                        <span>340m
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Type</h4>
-                        <span>2</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- End carousel item -->
-
-          <div class="carousel-item-b swiper-slide">
-            <div class="card-box-a card-shadow">
-              <div class="img-box-a">
-                <img src="{% static '/img/property-10.jpg' %}" alt="" class="img-a img-fluid">
-              </div>
-              <div class="card-overlay">
-                <div class="card-overlay-a-content">
-                  <div class="card-header-a">
-                    <h2 class="card-title-a">
-                      <a href="{% url 'property_single' '1' %}">204 Montal
-                        <br /> South Bela Two</a>
-                    </h2>
-                  </div>
-                  <div class="card-body-a">
-                    <a href="{% url 'property_single' '1' %}" class="link-a">Click here to view
-                      <span class="bi bi-chevron-right"></span>
-                    </a>
-                  </div>
-                  <div class="card-footer-a">
-                    <ul class="card-info d-flex justify-content-around">
-                      <li>
-                        <h4 class="card-info-title">Size</h4>
-                        <span>340m
-                        </span>
-                      </li>
-                      <li>
-                        <h4 class="card-info-title">Type</h4>
-                        <span>2</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div><!-- End carousel item -->
+          {% endfor %}
         </div>
       </div>
       <div class="propery-carousel-pagination carousel-pagination"></div>
