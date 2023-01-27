@@ -1,0 +1,54 @@
+{% load static %}
+<!-- app-Header -->
+<div class="app-header header sticky" style="margin-bottom: -73.9931px;">
+    <div class="container-fluid main-container">
+        <div class="d-flex align-items-center">
+            <a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="javascript:void(0);"></a>
+            <div class="responsive-logo">
+                <a href="" class="header-logo">
+                    <img src="{% static 'img/logo-municipal.svg' %}" class="mobile-logo logo-1" alt="logo" />
+                </a>
+            </div>
+            <!-- sidebar-toggle-->
+            <a class="logo-horizontal" href="">
+                <img src="{% static 'img/logo-municipal.svg' %}" class="header-brand-img" alt="logo" />
+            </a>
+            <!-- LOGO -->
+            <div class="d-flex order-lg-2 ms-auto header-right-icons">
+                <!-- SEARCH -->
+                <button
+                    class="navbar-toggler navresponsive-toggler d-lg-none ms-auto"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent-4"
+                    aria-controls="navbarSupportedContent-4"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+                >
+                    <span class="navbar-toggler-icon bi bi-three-dots-vertical text-dark"></span>
+                </button>
+                <div class="navbar navbar-collapse responsive-navbar p-0">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent-4">
+                        <div class="d-flex order-lg-2">
+                            
+                            <!-- USER-BOX -->
+                            <div class="dropdown d-md-flex profile-1">
+                                <a href="javascript:void(0);" data-bs-toggle="dropdown" class="nav-link leading-none d-flex px-1">
+                                    <span> Sandeep <i class="bi bi-chevron-down"></i> </span>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+                                    <div class="dropdown-divider m-0"></div>
+                                    <a class="dropdown-item" type="button" data-bs-toggle="modal" data-bs-target="#changepasswordModal"> <i class="dropdown-icon bi bi-key"></i> Change Password</a>
+                                    <a class="dropdown-item" href="login.html"> <i class="dropdown-icon bi bi-exclamation-circle"></i> Logout </a>
+                                </div>
+                            </div>
+                            <!-- SIDE-MENU -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="jumps-prevent" style="padding-top: 73.9931px;"></div>
+<!-- /app-Header -->

@@ -3,15 +3,22 @@ from django.http import JsonResponse
 import random, boto3
 from django.shortcuts import render, redirect, HttpResponseRedirect
 import random
-from .models import Otp, User
+from .models import Otp, User, AdvertisementSite
 from django.contrib.auth import authenticate, login, logout
-from .forms import PersonRegisterForm, UserBusinessProfileForm
+from .forms import PersonRegisterForm, UserBusinessProfileForm, UserComplaintsForm
 from django.urls import reverse
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import UserPassesTestMixin
 
+# from django.utils.decorators import method_decorator
 # User = get_user_model()
 
-class UserRegisterProfile(View):
+class UserRegisterProfile(UserPassesTestMixin,View):
+    def test_func(self):
+        return self.request.user.is_authenticated
+
+    def handle_no_permission(self):
+        return redirect('home')
 
     def get(self, request):
         user_obj = None
@@ -42,7 +49,13 @@ class UserRegisterProfile(View):
 
 
 
-class UserUpdateProfile(View):
+class UserUpdateProfile(UserPassesTestMixin,View):
+    def test_func(self):
+        return self.request.user.is_authenticated
+
+    def handle_no_permission(self):
+        return redirect('home')
+
     def post(self,request):
 
         update_data = {
@@ -125,11 +138,6 @@ def send_otp(request):
         return JsonResponse(data, status=200)
     else:
         return JsonResponse({"message": "Not send"}, status=400)
-
-# def dashboard(request):
-#     template = 'authentication/register-user-profile.html'
-#     phone_number = request.session.get('phone_number')
-#     return render(request,template,{'phone_number':phone_number})
 
 
 class ForgetMpinView(View):
@@ -220,12 +228,18 @@ class TermAndConditionsView(View):
 class PropertyGridView(View):
     def get(self,request):
         template = 'customers/property-grid.html'
-        return render(request, template)
+        context = {}
+        properties_obj = AdvertisementSite.objects.all()
+        context['properties_obj'] = properties_obj
+        return render(request, template,context)
 
 class propertySingleView(View):
-    def get(self,request):
+    def get(self,request,id):
         template = 'customers/property-single.html'
-        return render(request, template)
+        context = {}
+        property_detail = AdvertisementSite.objects.get(id=id)
+        context['property_detail'] = property_detail
+        return render(request, template,context)
 
 class BlogGridView(View):
     def get(self,request):
@@ -264,12 +278,29 @@ class PropertySearchGrid(View):
         return render(request, template)
 
 
+class CheckoutPageView(UserPassesTestMixin,View):
+    def test_func(self):
+        return self.request.user.is_authenticated
 
-class UserBusinessProfile(View):
+    def handle_no_permission(self):
+        return redirect('home')
+
+    def get(self,request):
+        template = 'customers/checkout-page.html'
+        return render(request, template)
+
+
+
+class UserBusinessProfile(UserPassesTestMixin,View):
+    def test_func(self):
+        return self.request.user.is_authenticated
+
+    def handle_no_permission(self):
+        return redirect('home')
+
     def get(self,request):
         user_obj = None
         template = 'authentication/business-profile.html'
-        print(request.user, "&&&&&&&&&&&&&&&&&&&&&&&&&")
         user_id = request.user.pk
         user_obj = request.user
         return render(request,template, {'user_id': user_id,'user_obj':user_obj})
@@ -293,12 +324,15 @@ class UserBusinessProfile(View):
                 return HttpResponseRedirect(reverse("user_business_profile"))
 
 
-# class UpdateUserBusinessProfile(View):
-#     def post(self,request):
-#         user_obj = request.user
-#         user_business_profile = user_obj.user_business_profile
-#         form = UserBusinessProfileForm(request.POST, instance=user_business_profile)
-#         if form.is_valid():
-#             form.save()
-#             return HttpResponseRedirect(reverse('home'))
-#         return HttpResponseRedirect(reverse("user_business_profile"))
+
+class UserComplaintView(View):
+    def post(self,request):
+        form = UserComplaintsForm(request.POST or None)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('home'))
+        return HttpResponseRedirect(reverse('home'))
+        
+
+            
+        

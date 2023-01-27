@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Otp,UserBusinessProfile
+from .models import Otp,UserBusinessProfile, AdvertisementSite
 # Register your models here.
 from django.contrib.auth import get_user_model
 from django.contrib.auth.admin import UserAdmin
@@ -70,3 +70,11 @@ class PersonAdmin(UserAdmin):
             return ["date_joined", "last_login", "modified_at"]
         else:
             return []
+
+
+
+@admin.register(AdvertisementSite)
+class AdvertisementSiteAdmin(admin.ModelAdmin):
+    list_display = ['Name','size', 'type','price','area','beds','baths','garages','Longitude','Lattitude','is_active']
+    list_filter = ('type',)
+    search_fields = ['Name']

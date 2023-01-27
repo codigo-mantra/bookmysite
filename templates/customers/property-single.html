@@ -1,19 +1,18 @@
-
 {% extends "base.html" %}
 {% load static %}
 {% block content %}
   <!-- ======= Header/Navbar ======= -->
-  {% include 'header1.html' %}
-
+  {% include 'header.html' %}
   <main id="main">
+
     <!-- ======= Intro Single ======= -->
     <section class="intro-single">
       <div class="container">
         <div class="row">
           <div class="col-md-12 col-lg-8">
             <div class="title-single-box">
-              <h1 class="title-single">304 Blaster Up</h1>
-              <span class="color-text-a">Chicago, IL 606543</span>
+              <h1 class="title-single">{{property_detail.Name}}</h1>
+              <span class="color-text-a">{{property_detail.Address}}</span>
             </div>
           </div>
           <div class="col-md-12 col-lg-4">
@@ -42,12 +41,14 @@
           <div class="col-lg-8">
             <div id="property-single-carousel" class="swiper">
               <div class="swiper-wrapper">
+                {% for image in property_detail.property_image.all %}
                 <div class="carousel-item-b swiper-slide">
-                  <img src="{% static '/img/slide-1.jpg' %}" alt="">
+                  <img src="{{ image.image.url }}" alt="">
                 </div>
-                <div class="carousel-item-b swiper-slide">
+                {% endfor %}
+                <!--<div class="carousel-item-b swiper-slide">
                   <img src="{% static '/img/slide-2.jpg' %}" alt="">
-                </div>
+                </div> -->
               </div>
             </div>
             <div class="property-single-carousel-pagination carousel-pagination"></div>
@@ -62,10 +63,10 @@
                 <div class="property-price d-flex justify-content-center foo">
                   <div class="card-header-c d-flex">
                     <div class="card-box-ico">
-                      <span class="bi bi-cash">$</span>
+                      <span class="bi bi-cash">₹</span>
                     </div>
                     <div class="card-title-c align-self-center">
-                      <h5 class="title-c">15000</h5>
+                      <h5 class="title-c">{{property_detail.price}}</h5>
                     </div>
                   </div>
                 </div>
@@ -93,25 +94,25 @@
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Status:</strong>
-                        <span>Sale</span>
+                        <span>{{property_detail.type}}</span>
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Area:</strong>
-                        <span>340m
-                          <sup>2</sup>
+                        <span>{{property_detail.area}}
+                        <!--  <sup>2</sup> -->
                         </span>
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Beds:</strong>
-                        <span>4</span>
+                        <span>{{property_detail.beds}}</span>
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Baths:</strong>
-                        <span>2</span>
+                        <span>{{property_detail.baths}}</span>
                       </li>
                       <li class="d-flex justify-content-between">
                         <strong>Garage:</strong>
-                        <span>1</span>
+                        <span>{{property_detail.garages}}</span>
                       </li>
                     </ul>
                   </div>
@@ -127,16 +128,7 @@
                 </div>
                 <div class="property-description">
                   <p class="description color-text-a">
-                    Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Donec velit
-                    neque, auctor sit amet
-                    aliquam vel, ullamcorper sit amet ligula. Cras ultricies ligula sed magna dictum porta.
-                    Curabitur aliquet quam id dui posuere blandit. Mauris blandit aliquet elit, eget tincidunt
-                    nibh pulvinar quam id dui posuere blandit.
-                  </p>
-                  <p class="description color-text-a no-margin">
-                    Curabitur arcu erat, accumsan id imperdiet et, porttitor at sem. Donec rutrum congue leo eget
-                    malesuada. Quisque velit nisi,
-                    pretium ut lacinia in, elementum id enim. Donec sollicitudin molestie malesuada.
+                    {{property_detail.description}}
                   </p>
                 </div>
                 <div class="row section-t3">
@@ -281,7 +273,11 @@
         </div>
       </div>
     </section><!-- End Property Single-->
+
   </main><!-- End #main -->
-    <!-- ======= Footer ======= -->
-  {% include 'footer.html' %}
+
+  {% include 'footer1.html' %}
+  <!-- End  Footer -->
+	<!-- Modal -->
+
 {% endblock content %}

@@ -84,7 +84,7 @@
               <div class="col-md-12 mb-3">
                 <div class="form-group">
                   <input name="email" id="email" type="email" class="form-control form-control-lg form-control-a"
-                    placeholder="Your Email" required value="{{user_obj.email}}">
+                    placeholder="Your Email" required value="{% if user_obj.email == '_@gmail.com' %}{% else %}{{user_obj.email}}{% endif %}">
                 </div>
               </div>
 

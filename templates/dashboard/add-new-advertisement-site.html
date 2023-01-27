@@ -1,0 +1,127 @@
+{% extends "dashboard/base.html" %}
+{% load static %}
+{% block content %}
+<div class="main-content app-content mt-0">
+    <div class="side-app">
+        <!-- CONTAINER -->
+        <div class="main-container container-fluid">
+            <div class="row row-sm">
+                <div class="col-lg-12 col-md-12">
+                    <div class="card">
+                        <div class="card-header justify-content-center">
+                            <h3 class="mt-1 card-title">Add a new advertisement site</h3>
+                        </div>
+                        <form action="{% url 'add_new_advertisement_site' %}" method="POST" enctype="multipart/form-data">
+                            <div class="card-body pt-2">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Id :</label>
+                                            <input type="text" class="form-control" placeholder="" />
+                                        </div>
+                                    </div>
+                                    {% csrf_token %}
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Name :</label>
+                                            <input type="text" name="Name" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Address :</label>
+                                            <input type="text" name="Address" class="form-control" placeholder="" / required >
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Longitude :</label>
+                                            <input type="text" name="Longitude" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Lattitude :</label>
+                                            <input type="text" name="Lattitude" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+                                    <!-- <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Type :</label>
+                                            <input type="text" name="type" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div> -->
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Type :</label>
+                                            <select name="type" class="form-control" required>
+                                                <option value="" disabled selected>Select an option</option>
+                                                <option value="1">For Rent</option>
+                                                <option value="2">For Sale</option>
+                                                <option value="3">For House</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Price :</label>
+                                            <input type="number" name="price" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Area :</label>
+                                            <input type="text" name="area" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Beds :</label>
+                                            <input type="number" name="beds" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Baths :</label>
+                                            <input type="number" name="baths" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            <label class="form-label"> Garages :</label>
+                                            <input type="number" name="garages" class="form-control" placeholder="" / required>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <div class="form-group"><label class="form-label mt-0">Upload Pics </label> <input
+                                                class="form-control" type="file" name="image" / required></div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <div class="form-group">
+                                            <label class="form-label"> Description :</label>
+                                            <textarea type="text" name="description" class="form-control" placeholder="" / required></textarea>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <!-- <a href="javascript:void(0);" type="submit" class="btn btn-primary w-100">Add </a> -->
+                                        <input type="submit" class="btn btn-primary w-100" value="Add">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!-- CONTAINER END -->
+    </div>
+</div>
+<!--app-content end-->
+{% endblock content %}

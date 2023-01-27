@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <!-- META DATA -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <!-- FAVICON -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800;900&display=swap"
+        rel="stylesheet">
+    <link rel="shortcut icon" type="image/x-icon" href="{% static '/img/favicon.ico' %}" />
+    <!-- TITLE -->
+    <title>Dashboard</title>
+    <!-- BOOTSTRAP CSS -->
+    <link id="style" href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet" />
+    <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+    <!-- STYLE CSS -->
+    <link href="{% static 'css/dashboard//style.css' %}" rel="stylesheet" />
+</head>
+
+<body class="app sidebar-mini ltr light-mode">
+    <div class="horizontalMenucontainer">
+        <!-- End Switcher -->
+        <!-- GLOBAL-LOADER -->
+        <div id="global-loader" style="display: none;">
+            <img src="./index_files/loader.svg" class="loader-img" alt="Loader" />
+        </div>
+        <!-- /GLOBAL-LOADER -->
+        <!-- PAGE -->
+        <div class="page">
+            <div class="page-main">
+                <!-- app-Header -->
+                {% include "dashboard/header.html" %}
+                <!-- /app-Header -->
+                <!--APP-SIDEBAR-->
+                {% include "dashboard/sidebar.html" %}
+                <!--/APP-SIDEBAR-->
+                {% block content %}
+
+
+                {% endblock content %}
+
+
+            </div>
+
+        </div>
+        <!-- BACK-TO-TOP -->
+        <a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
+    </div>
+
+    <!-- Modal -->
+    {% include "dashboard/modal.html" %}
+    <script src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'js/custom.js' %}"></script>
+    <script src="{% static 'js/sidemenu.js' %}"></script>
+
+</body>
+
+</html>

@@ -2748,6 +2748,7 @@ footer .copyright-footer {
 footer .credits {
   font-size: 14px;
 }
-html {
-   scroll-behavior: smooth; 
-  } 
+
+button[disabled] {
+  opacity: 0.6;
+}

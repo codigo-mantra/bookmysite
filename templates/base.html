@@ -232,6 +232,7 @@
                 submitBtn.disabled = true;
             }
         });
+        
         const form = document.getElementById('setmpin');
             form.addEventListener('submit', function(event) {
             event.preventDefault();
@@ -278,30 +279,33 @@
         }
         });
 
-        $("#reset_mpin_submit_button").click(function(){
-        if(submitBtn.disabled === false){
-            var phone_number = $("#id_phone_number").val();
-            var code = "+91";
-            var password = $("#password").val()
-            $.ajax({
-                url: "{% url 'mpin_reset' %}",
-                method: "POST",
-                headers: {"X-CSRFToken": "{{ csrf_token}}"},
-                data: {'phone_number':code+phone_number,'password':password},
-                success: function(response) {
-                    console.log(response)
+       $("#reset_mpin_submit_button").click(function(){
+        if(submitBtnn.disabled === false){
+            var phone_number1 = $("#id_phone_number").val();
+            var phone_number2 = $("#id_phone_number_mpin").val();
+
+            if(phone_number2 != null && phone_number1 == phone_number2){
+                var code = "+91";
+                var password = $("#password").val();
+                $.ajax({
+                    url: "{% url 'mpin_reset' %}",
+                    method: "POST",
+                    headers: {"X-CSRFToken": "{{ csrf_token}}"},
+                    data: {'phone_number':code+phone_number1,'password':password},
+                    success: function(response) {
+                        console.log(response)
                         $("#id_reset_mpin_modal_login").addClass('d-none');
-                        //$("#id_second_step_modal_login").removeClass('d-none');
                         location.href = "{% url 'home' %}";
-                },
-                error: function(response){
-                    console.log(response)
-                }
-            });
+                    },
+                    error: function(response){
+                        console.log(response)
+                    }
+                });
             }else {
-                alert("MPIN should be 6 digit!");
+                $("#password_error_msg").removeClass('d-none');
             }
-        })
+        }
+    });
 
     </script>
     {% block js %}

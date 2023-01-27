@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth import get_user_model
 from django.core.validators import validate_email
 from django.utils.translation import gettext_lazy as _
-from .models import UserBusinessProfile
+from .models import UserBusinessProfile, Complaints, AdvertisementSite, PropertyImage
 
 User = get_user_model()
 
@@ -58,3 +58,26 @@ class PersonRegisterForm(forms.ModelForm):
 
         )
 
+
+class UserComplaintsForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super(UserComplaintsForm, self).__init__(*args, **kwargs)
+        self.fields['Description'].required = False
+
+    class Meta:
+        model = Complaints
+        fields = ('name', 'email', 'phone', 'location', 'subject','Description')
+
+
+
+class AdvertisementSiteForm(forms.ModelForm):
+    type = forms.ChoiceField(choices=AdvertisementSite.CHOICES)
+    class Meta:
+        model = AdvertisementSite
+        fields = ['Name','description','size','price','area','beds','baths','garages','type','Address','Longitude','Lattitude','is_active']
+
+
+class PropertyImageForm(forms.ModelForm):
+    class Meta:
+        model = PropertyImage
+        fields = ['image']
