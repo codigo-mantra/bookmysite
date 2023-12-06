@@ -152,7 +152,7 @@ class ForgetMpinView(View):
 class LoginView(View):
     def post(self,request):
         is_logged_in = False
-        print(request.POST, "##########-######")
+        print(request.POST, "##########---######")
         phone_number = request.POST.get("phone_number")
         password = request.POST.get("password")
         user = authenticate(request, phone_number=phone_number, password=password)
