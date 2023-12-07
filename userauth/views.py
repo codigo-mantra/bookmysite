@@ -135,7 +135,7 @@ def send_otp(request):
 class ForgetMpinView(View):
     def post(self,request):
         # user = User.objects.get(phone_number=request.POST.get('phone_number'))
-        username = request.POST.get('phone_number')
+        username = request.POST.get()#'phone_number'
         user = User.objects.get(username=username)
 
         if user:
