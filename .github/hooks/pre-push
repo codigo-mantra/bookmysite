@@ -1,0 +1,20 @@
+
+#!/bin/bash
+
+# Get the name of the current branch
+current_branch=$(git symbolic-ref --short HEAD)
+
+# Check if the current branch matches the target branch
+if [[ $current_branch = current_branch ]]; then
+    read -p "Are you sure you want to push to branch $current_branch? (y/n) " response
+
+    if [[ $response =~ ^[Yy]$ ]]; then
+        # If the user inputs 'y' or 'Y', allow the push to proceed
+        exit 0
+    else
+        echo "Push to branch aborted."
+        exit 1  # Abort the push operation
+    fi
+else
+    exit 0  # Allow push for other branches without prompting
+fi
