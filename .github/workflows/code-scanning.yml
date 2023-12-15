@@ -1,18 +1,28 @@
-name: Code Scanning
-
+name: CodeQL Analysis
 on:
   push:
-    branches:
-      - main
-
+    branches: [main]
 jobs:
-  code-scanning:
+  analyze:
+    name: Analyze 
     runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: ['python', 'javascript']
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
+      
+      - name: Initializing CodeQL
+        uses: github/codeql-action/init@v1
 
-      - name: Code Scanning
-        uses: github/codeql-action@v2
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v1
+
+      - name: Upload CodeQL Results
+        uses: github/codeql-action/upload-sarif@v1
         with:
-          languages: all
+          sarif_file: codeql-results.sarif
