@@ -140,7 +140,7 @@ class ForgetMpinView(View):
 
         if user:
             password = request.POST.get('password')
-            user.set_password(password)
+            uer.set_password(password)
             user.save()
             return JsonResponse({"msg": "MPIN chnaged"}, status=200)
         else:
