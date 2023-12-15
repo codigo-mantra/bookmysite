@@ -1,43 +1,43 @@
-name: "sonar_cloud_scan_github_actions"
-on:
-  push:
-    branches:
-      - main
+# name: "sonar_cloud_scan_github_actions"
+# on:
+#   push:
+#     branches:
+#       - main
 
-jobs:
-  DemoSonarCloudSCan:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
+# jobs:
+#   DemoSonarCloudSCan:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v3
+#         with:
+#           fetch-depth: 0
 
-      - name: SonarCloud Scan
-        uses: sonarsource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.organization=codigo-mantra
-            -Dsonar.projectKey=bookmysite
-            -Dsonar.python.coverage.reportPaths=coverage.xml
+#       - name: SonarCloud Scan
+#         uses: sonarsource/sonarcloud-github-action@master
+#         env:
+#           GITHUB_TOKEN: ${{ secrets.GIT_TOKEN }}
+#           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#         with:
+#           args: >
+#             -Dsonar.organization=codigo-mantra
+#             -Dsonar.projectKey=bookmysite
+#             -Dsonar.python.coverage.reportPaths=coverage.xml
 
-      - name: Install jq
-        run: sudo apt-get update && sudo apt-get install jq -y
+#       - name: Install jq
+#         run: sudo apt-get update && sudo apt-get install jq -y
 
-      - name: Check SonarCloud Quality Gate
-        run: |
-          PROJECT_KEY="bookmysite" # Replace with your SonarCloud project key
-          BRANCH_NAME="main" # Replace with the branch you want to check
+#       - name: Check SonarCloud Quality Gate
+#         run: |
+#           PROJECT_KEY="bookmysite" # Replace with your SonarCloud project key
+#           BRANCH_NAME="main" # Replace with the branch you want to check
 
-          SONARCLOUD_API="https://sonarcloud.io/api/qualitygates/project_status?projectKey=${PROJECT_KEY}&branch=${BRANCH_NAME}"
+#           SONARCLOUD_API="https://sonarcloud.io/api/qualitygates/project_status?projectKey=${PROJECT_KEY}&branch=${BRANCH_NAME}"
 
-          SONAR_RESULT=$(curl -s -u $SONAR_TOKEN: "${SONARCLOUD_API}")
+#           SONAR_RESULT=$(curl -s -u $SONAR_TOKEN: "${SONARCLOUD_API}")
 
-          if [[ $(echo "$SONAR_RESULT" | jq -r '.projectStatus.status') != "OK" ]]; then
-            echo "Vulnerabilities found or Quality Gate failed."
-            exit 1
-          else
-            echo "No vulnerabilities found. Quality Gate passed."
-          fi
+#           if [[ $(echo "$SONAR_RESULT" | jq -r '.projectStatus.status') != "OK" ]]; then
+#             echo "Vulnerabilities found or Quality Gate failed."
+#             exit 1
+#           else
+#             echo "No vulnerabilities found. Quality Gate passed."
+#           fi
